@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نقشه راه توسعه | فيت‌منت</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="app">
+  <div id="sidebar-mount"></div>
+  <main class="main">
+    <div class="topbar">
+      <button class="menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+      <div class="topbar-title">صفحه ۱۲ · نقشه راه توسعه</div>
+    </div>
+    <div class="content">
+      <span class="eyebrow">از MVP تا کسب‌وکار واقعی</span>
+      <h1 class="page-title">نقشه راه توسعه کسب‌وکار</h1>
+      <p class="page-subtitle">مسیر تبدیل نسخه نمایشی فعلی به یک محصول کامل و قابل استفاده در بازار.</p>
+
+      <h2 class="section-title"><span class="dot"></span>تایم‌لاین توسعه</h2>
+      <div class="card">
+        <div class="timeline">
+          <div class="timeline-step">
+            <div class="timeline-dot">۰</div>
+            <h3 class="card-title" style="font-size:14px">نسخه فعلی (MVP)</h3>
+            <p class="muted" style="font-size:12.5px">ثبت پروفایل تغذیه‌ای، دموی فیلتر و رتبه‌بندی غذا روی منوی نمونه، نمایش بوم کسب‌وکار و تحلیل بازار.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot">۳م</div>
+            <h3 class="card-title" style="font-size:14px">برنامه سه‌ماهه</h3>
+            <p class="muted" style="font-size:12.5px">عضوگیری ۱۰-۱۵ رستوران واقعی، اتصال درگاه پرداخت، ساخت اپلیکیشن موبایل ساده، آزمون میدانی با ۵۰۰ کاربر اولیه.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot">۶م</div>
+            <h3 class="card-title" style="font-size:14px">برنامه شش‌ماهه</h3>
+            <p class="muted" style="font-size:12.5px">افزودن همکاری با متخصصان تغذیه، برنامه غذایی اختصاصی پولی، گسترش به شهر دوم، بهبود دقت الگوریتم پیشنهاددهی.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot">+۱۲م</div>
+            <h3 class="card-title" style="font-size:14px">نسخه آینده</h3>
+            <p class="muted" style="font-size:12.5px">اتصال به اپلیکیشن‌های ورزشی و سلامت، سیستم پایش پیشرفت کاربر، گسترش ملی.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title"><span class="dot"></span>امکانات فعلی در برابر نسخه بعدی</h2>
+      <div class="grid-2">
+        <div class="card">
+          <span class="pill pill-green">پیاده‌سازی شده</span>
+          <ul style="margin-top:14px;font-size:13.5px">
+            <li style="margin-bottom:8px">▫ فرم پروفایل تغذیه‌ای (هدف، محدودیت)</li>
+            <li style="margin-bottom:8px">▫ موتور امتیازدهی و فیلتر غذا روی داده نمونه</li>
+            <li style="margin-bottom:8px">▫ نمایش برچسب تناسب (سبز/زرد/قرمز)</li>
+            <li>▫ صفحات کامل تحلیل کسب‌وکار</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="pill pill-orange">نسخه بعدی</span>
+          <ul style="margin-top:14px;font-size:13.5px">
+            <li style="margin-bottom:8px">▫ اتصال به منوی واقعی رستوران‌ها (API)</li>
+            <li style="margin-bottom:8px">▫ پرداخت آنلاین واقعی</li>
+            <li style="margin-bottom:8px">▫ یادگیری از سفارش‌های قبلی کاربر</li>
+            <li>▫ پنل مدیریت برای رستوران‌ها</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 class="section-title"><span class="dot"></span>چالش‌ها و ریسک‌ها</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3 class="card-title" style="font-size:14px;color:var(--navy)">چالش فنی</h3>
+          <p class="muted" style="font-size:13px">دقت داده تغذیه‌ای منوها و نگهداری الگوریتم پیشنهاددهی در مقیاس بزرگ‌تر.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title" style="font-size:14px;color:var(--orange)">چالش بازار</h3>
+          <p class="muted" style="font-size:13px">رقابت با پلتفرم‌های بزرگ‌تر و جذب همکاری رستوران‌های کوچک و متوسط.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title" style="font-size:14px;color:var(--red)">چالش اعتماد</h3>
+          <p class="muted" style="font-size:13px">اعتمادسازی در حوزه‌ای حساس مثل سلامت و دقت پیشنهادهای مرتبط با بیماری.</p>
+        </div>
+      </div>
+
+      <div id="footer-nav-mount" class="page-footer-nav"></div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/nav.js"></script>
+<script>
+renderSidebar('roadmap.html');
+renderFooterNav('roadmap.html');
+</script>
+</body>
+</html>

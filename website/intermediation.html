@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحلیل واسطه‌گری | فيت‌منت</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.intermediation-diagram {
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  padding: 30px 10px; flex-wrap: wrap;
+}
+.id-node {
+  background: var(--bg-card); border: 2px solid var(--border); border-radius: 14px;
+  padding: 18px 22px; text-align: center; min-width: 140px;
+}
+.id-node.highlight { border-color: var(--green); background: var(--green-light); }
+.id-arrow { font-size: 22px; color: var(--text-muted); padding: 0 14px; }
+.value-func-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 800px) { .value-func-grid { grid-template-columns: 1fr; } .intermediation-diagram { flex-direction: column; } .id-arrow { transform: rotate(90deg); } }
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="sidebar-mount"></div>
+  <main class="main">
+    <div class="topbar">
+      <button class="menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+      <div class="topbar-title">صفحه ۱۰ · تحلیل واسطه‌گری</div>
+    </div>
+    <div class="content">
+      <span class="eyebrow">جایگاه در زنجیره ارزش</span>
+      <h1 class="page-title">تحلیل واسطه‌گری و زنجیره ارزش</h1>
+      <p class="page-subtitle">تناسب‌یار چطور بین کاربر و رستوران قرار می‌گیرد و چه نوع ارزشی از این واسطه‌گری ایجاد می‌شود.</p>
+
+      <h2 class="section-title"><span class="dot"></span>نقشه واسطه‌گری</h2>
+      <div class="card">
+        <div class="intermediation-diagram">
+          <div class="id-node">👤<br>کاربر</div>
+          <div class="id-arrow">⇄</div>
+          <div class="id-node highlight">🧠<br>فيت‌منت<br><span style="font-size:11px;color:var(--text-muted)">(واسطه + پیشنهاددهی هوشمند)</span></div>
+          <div class="id-arrow">⇄</div>
+          <div class="id-node">🏪<br>رستوران</div>
+        </div>
+        <p class="muted" style="text-align:center;margin-top:10px">پلتفرم نقش یک واسطه اصلی بین کاربران و رستوران‌ها را ایفا می‌کند و یک لایه جدید — سیستم پیشنهاددهی هوشمند — بین کاربر و انتخاب نهایی او قرار می‌دهد.</p>
+      </div>
+
+      <h2 class="section-title"><span class="dot"></span>آیا ایده ذاتاً واسطه‌گر است؟</h2>
+      <div class="card">
+        <p>بله. این پلتفرم بین دو گروه اصلی — کاربران و رستوران‌ها — قرار می‌گیرد و فرآیند ارتباط، انتخاب و خرید را تسهیل می‌کند. با افزودن سیستم پیشنهاددهی، نقش واسطه‌گری از یک واسطه ساده به یک «تصمیم‌یار هوشمند» ارتقا می‌یابد.</p>
+      </div>
+
+      <h2 class="section-title"><span class="dot"></span>کارکردهای ارزش‌آفرین واسطه‌گری</h2>
+      <div class="value-func-grid">
+        <div class="card">
+          <span class="pill pill-green">کاهش ارتباطات</span>
+          <p class="muted" style="margin-top:10px">کاربر به‌جای ارتباط جداگانه با چندین رستوران، فقط از یک پلتفرم واحد استفاده می‌کند و به تعداد زیادی رستوران دسترسی دارد.</p>
+        </div>
+        <div class="card">
+          <span class="pill pill-orange">افزایش مقیاس</span>
+          <p class="muted" style="margin-top:10px">با افزایش تعداد کاربران و رستوران‌های همکار، ارزش پلتفرم برای هر طرف بیشتر می‌شود (اثر شبکه).</p>
+        </div>
+        <div class="card">
+          <span class="pill pill-navy">ایجاد تخصص</span>
+          <p class="muted" style="margin-top:10px">سیستم پیشنهاددهی نوعی «تخصص تغذیه» را وارد فرآیند انتخاب غذا می‌کند، بدون این‌که کاربر خودش متخصص باشد.</p>
+        </div>
+        <div class="card">
+          <span class="pill pill-red">کاهش ریسک</span>
+          <p class="muted" style="margin-top:10px">ریسک انتخاب غذای نامناسب با شرایط بدنی کاهش می‌یابد؛ امتیازدهی کاربران نیز ریسک انتخاب رستوران نامناسب را کم می‌کند.</p>
+        </div>
+      </div>
+
+      <h2 class="section-title"><span class="dot"></span>واسطه‌های حذف‌شده و واسطه‌های جدید</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">واسطه‌هایی که ممکن است حذف شوند</h3>
+          <p class="muted">نیاز به جست‌وجوی دستی و جداگانه کاربر در هر رستوران، و تا حدی نیاز به مشاوره حضوری تغذیه برای انتخاب‌های روزمره.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title">واسطه‌های جدیدی که ایجاد می‌شوند</h3>
+          <p class="muted">سیستم پیشنهاددهی هوشمند به‌عنوان یک لایه واسطه‌گری تازه بین کاربر و تصمیم نهایی او.</p>
+        </div>
+      </div>
+
+      <div id="footer-nav-mount" class="page-footer-nav"></div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/nav.js"></script>
+<script>
+renderSidebar('intermediation.html');
+renderFooterNav('intermediation.html');
+</script>
+</body>
+</html>

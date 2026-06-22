@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحلیل ارزش‌آفرینی | فيت‌منت</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+/* ⚡ استایل ارتقایافته کارت‌های ارزش با افکت هاور */
+.value-card { 
+  display: flex; 
+  gap: 18px; 
+  align-items: flex-start; 
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.value-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--navy-light);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+}
+.value-card:hover .value-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.value-icon {
+  width: 50px; height: 50px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; 
+  transition: all 0.3s ease;
+}
+.value-icon svg {
+  width: 24px; height: 24px; fill: currentColor;
+}
+
+/* ⚡ باکس پایداری ارزش مدرن */
+.sustain-box { 
+  background: rgba(var(--navy-rgb), 0.03); 
+  border: 1px solid var(--border);
+  border-radius: var(--radius); 
+  padding: 26px; 
+  margin-top: 24px; 
+}
+.sustain-condition { 
+  display: flex; 
+  gap: 16px; 
+  align-items: flex-start; 
+  margin-bottom: 16px; 
+  background: var(--bg-card);
+  padding: 16px;
+  border-radius: 12px;
+  border-right: 4px solid var(--navy);
+  transition: all 0.2s ease;
+}
+.sustain-condition:last-child { margin-bottom: 0; }
+.sustain-condition:hover {
+  transform: translateX(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+.sustain-condition .sc-num {
+  width: 28px; height: 28px; border-radius: 8px; 
+  background: var(--navy-light); color: var(--navy);
+  display: flex; align-items: center; justify-content: center; 
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+
+.card-title { font-weight: 700; font-size: 15.5px; margin-bottom: 8px; }
+.muted { font-size: 13.5px; line-height: 1.7; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="sidebar-mount"></div>
+  <main class="main">
+    <div class="topbar">
+      <button class="menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+      <div class="topbar-title">صفحه ۰۴ · تحلیل ارزش‌آفرینی</div>
+    </div>
+    <div class="content">
+      <span class="eyebrow">چرا مشتری باید توجه کند</span>
+      <h1 class="page-title">تحلیل ارزش‌آفرینی</h1>
+      <p class="page-subtitle">پنج ابعاد ساختاریافته ارزش که فیت‌منت برای کاربر، کترینگ‌های سلامت و کل اکوسیستم بازار ایجاد می‌کند.</p>
+
+      <div class="grid-2" style="margin-bottom:20px">
+        <!-- ۱. ارزش بکارگیری -->
+        <div class="card value-card">
+          <div class="value-icon" style="background:var(--green-light); color:var(--green)">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          </div>
+          <div>
+            <h3 class="card-title">ارزش بکارگیری (Value-in-Use)</h3>
+            <p class="muted">کاربران فیت‌منت بدون نیاز به دانش تخصصی و پیچیده تغذیه، منوی متناسب با اهداف بدنی خود را می‌یابند. به‌جای سردرگمی در یک کاتالوگ طولانی، پیشنهادهای الگوریتمی سیستم فرآیند تصمیم‌گیری را به حداقل می‌رساند.</p>
+          </div>
+        </div>
+
+        <!-- ۲. ارزش مبادله‌ای -->
+        <div class="card value-card">
+          <div class="value-icon" style="background:var(--orange-light); color:var(--orange)">
+            <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+          </div>
+          <div>
+            <h3 class="card-title">ارزش مبادله‌ای (Value-in-Exchange)</h3>
+            <p class="muted">کاربر همان بهای مرسوم سفارش غذا را می‌پردازد، اما در ازای آن علاوه بر خودِ محصول فیزیکی، سرویس پردازش دیتای سلامت و هوشمندسازی منو را نیز دریافت می‌کند که توازن هزینه-فایده را به شدت به نفع مشتری ارتقا می‌دهد.</p>
+          </div>
+        </div>
+
+        <!-- ۳. ارزش استراتژیک -->
+        <div class="card value-card">
+          <div class="value-icon" style="background:var(--navy-light); color:var(--navy)">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM13 16h-2v2h2v-2zm0-6h-2v4h2v-4z"/></svg>
+          </div>
+          <div>
+            <h3 class="card-title">ارزش استراتژیک (Strategic Value)</h3>
+            <p class="muted">در حالی که پلتفرم‌های مونوپلی بازار بر روی قیمت و سرعت رقابت می‌کنند، فیت‌منت با تمرکز بر نیچ‌مارکتِ «سلامت و شخصی‌سازی» جایگاهی بی‌بدیل در ذهن کاربر می‌سازد که داده‌های فیزیولوژیک کاربران، سد ورود محکمی برای رقبا خواهد بود.</p>
+          </div>
+        </div>
+
+        <!-- ۴. ارزش افزوده از دید عرضه‌کننده -->
+        <div class="card value-card">
+          <div class="value-icon" style="background:var(--yellow-light); color:var(--yellow)">
+            <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/></svg>
+          </div>
+          <div>
+            <h3 class="card-title">ارزش افزوده از دید عرضه‌کننده (کترینگ‌ها)</h3>
+            <p class="muted">کترینگ‌های سلامت به جای هدر دادن بودجه تبلیغاتی در پلتفرم‌های عمومی، مستقیماً به جامعه مخاطب هدف (ورزشکاران و بیماران رژیمی) متصل می‌شوند که این امر نرخ تبدیل سفارش و وفاداری به برند کترینگ را به‌شدت افزایش می‌دهد.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ۵. ارزش افزوده از دید مشتری -->
+      <div class="card value-card" style="margin-bottom:30px">
+        <div class="value-icon" style="background:var(--red-light); color:var(--red)">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div>
+          <h3 class="card-title">ارزش افزوده از دید مشتری (تسهیل روان‌شناختی)</h3>
+          <p class="muted">کاهش خستگی تصمیم‌گیری (Decision Fatigue) و استرس ناشی از انتخاب غذاهای ناسازگار با رژیم. فیت‌منت به کاربر حس اطمینان، کنترل کامل بر کالری‌های ورودی و همراهی هوشمند در مسیر اهداف سلامتی‌اش را هدیه می‌دهد.</p>
+        </div>
+      </div>
+
+      <!-- ⚡ بخش پایداری ارزش -->
+      <h2 class="section-title"><span class="dot"></span>پایداری ارزش افزوده در طول زمان</h2>
+      <div class="sustain-box">
+        <p class="muted" style="margin-bottom:18px; color: var(--text); font-weight:600;">بقا و استمرار ارزش خلق‌شده در فیت‌منت، منوط به پایداری سه رکن استراتژیک زیر است:</p>
+        
+        <div class="sustain-condition">
+          <div class="sc-num">۱</div>
+          <div>
+            <strong style="font-size: 14px; display: block; margin-bottom: 4px;">کالیبراسیون و تکامل الگوریتم</strong>
+            <p class="muted" style="margin:0">دقت پیشنهادات موتور رتبه‌بندی باید بر اساس فیدبک‌های تکرارشونده کاربران و نتایج وزن‌کشی آن‌ها دائماً بهینه‌سازی و شخصی‌تر شود.</p>
+          </div>
+        </div>
+        
+        <div class="sustain-condition" style="border-right-color: var(--orange);">
+          <div class="sc-num" style="background: var(--orange-light); color: var(--orange);">۲</div>
+          <div>
+            <strong style="font-size: 14px; display: block; margin-bottom: 4px;">صحت‌سنجی زنجیره تأمین دیتا</strong>
+            <p class="muted" style="margin:0">تضمین نظارت بر کترینگ‌ها جهت اعلام دقیق ماکرونوترینت‌ها (پروتئین، کربوهیدرات و چربی)؛ چرا که هرگونه مغایرت، اعتماد حیاتی کاربر به سیستم را نابود می‌کند.</p>
+          </div>
+        </div>
+        
+        <div class="sustain-condition" style="border-right-color: var(--green);">
+          <div class="sc-num" style="background: var(--green-light); color: var(--green);">۳</div>
+          <div>
+            <strong style="font-size: 14px; display: block; margin-bottom: 4px;">توسعه چابک قابلیت‌ها</strong>
+            <p class="muted" style="margin:0">پیش‌دستی تکنولوژیک در برابر کپی‌برداری احتمالی رقبای بزرگ، از طریق یکپارچه‌سازی سریع سیستم با اپلیکیشن‌های ورزشی و گجت‌های هوشمند سینک‌شده با سلامت.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⚡ بخش پایانی چرا مشتری باید توجه کند -->
+      <!-- ⚡ بخش پایانی چرا مشتری باید توجه کند -->
+      <h2 class="section-title"><span class="dot"></span>چرا مشتری باید توجه کند؟</h2>
+      <div class="card" style="border-right: 4px solid var(--green); background: rgba(var(--green-rgb), 0.02);">
+        <p class="muted" style="color: var(--text); font-size: 14px;">نقطه عطف پلتفرم <strong>فیت‌منت</strong> در این است که تنها یک کانال خرید جدید باز نمی‌کند، بلکه <strong>پارادایم انتخاب غذا</strong> را برای جامعه دغدغه‌مند سلامت دگرگون می‌سازد — تبدیل یک تصمیم کورکورانه، تصادفی و پر از عذاب‌وجدان، به یک فرآیند داده‌محور، مهندسی‌شده و کاملاً مطمئن.</p>
+      </div>
+
+      <div id="footer-nav-mount" class="page-footer-nav"></div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/nav.js"></script>
+<script>
+renderSidebar('value-creation.html');
+renderFooterNav('value-creation.html');
+</script>
+</body>
+</html>
