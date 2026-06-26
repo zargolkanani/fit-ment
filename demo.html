@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دمو فیت‌منت</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/vazirmatn@3.3.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css">
+
+<style>
+  :root {
+    --primary-gradient: linear-gradient(135deg, #114b5f 0%, #1a4332 100%);
+    --emerald-glow: linear-gradient(135deg, #52b788 0%, #2d6a4f 100%);
+    --glass-bg: rgba(255, 255, 255, 0.88);
+    --glass-border: rgba(45, 106, 79, 0.08);
+    --accent-success: #52b788;
+    --accent-danger: #ef4444;
+    --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.02);
+    --shadow-md: 0 10px 25px rgba(27, 67, 50, 0.04);
+    --shadow-lg: 0 20px 40px rgba(17, 75, 95, 0.08);
+  }
+
+  body, button, input, select, textarea, table {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+
+  .demo-container { display: grid; grid-template-columns: 1.10fr 1.40fr; gap: 28px; margin-top: 24px; }
+  @media (max-width: 992px) { .demo-container { grid-template-columns: 1fr; } }
+  
+  .luxury-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+  }
+  .luxury-card:hover { box-shadow: var(--shadow-lg); }
+
+  .chip-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .chip { cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 30px; background: #fff; font-size: 13px; color: #334155; font-weight: 500; }
+  .chip:hover { background: #f8fafc; transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .chip.active-green { background: var(--emerald-glow) !important; color: white !important; border-color: #2d6a4f !important; box-shadow: 0 6px 15px rgba(45, 106, 79, 0.2); }
+
+  /* 🟢 منوی غذا ۳بعدی زمردی لوکس */
+  .food-card { 
+    background: #ffffff;
+    border: 1px solid rgba(45, 106, 79, 0.04); 
+    border-radius: 22px; 
+    padding: 20px; 
+    margin-bottom: 22px; 
+    display: flex; 
+    gap: 18px; 
+    align-items: flex-start; 
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+    position: relative;
+    box-shadow: var(--shadow-sm);
+  }
+  .food-card:hover { 
+    transform: translateY(-6px) scale(1.01); 
+    box-shadow: 0 20px 35px rgba(45, 106, 79, 0.06); 
+    border-color: rgba(45, 106, 79, 0.2); 
+  }
+  
+  .food-img { width: 125px; height: 125px; border-radius: 18px; background-size: cover; background-position: center; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+  .food-details { flex-grow: 1; text-align: right; }
+  .food-details h4 { margin: 0 0 8px 0; font-size: 16px; color: #1b4332; font-weight: 800; line-height: 1.4; }
+  .food-meta { font-size: 12.5px; color: #52b788; margin-bottom: 6px; font-weight: 500; }
+  .food-price { font-weight: 900; color: #2d6a4f; font-size: 17px; margin-top: 10px; display: inline-block; }
+  
+  .food-hover-info {
+    max-height: 0; opacity: 0; transform: translateY(12px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border-top: 1px dashed #d8f3dc; margin-top: 0; padding-top: 0; overflow: hidden;
+  }
+  .food-card:hover .food-hover-info { max-height: 160px; opacity: 1; transform: translateY(0); margin-top: 14px; padding-top: 14px; }
+
+  .macro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; text-align: center; }
+  .macro-item { background: #f4fbf7; padding: 6px; border-radius: 8px; font-size: 11.5px; border: 1px solid #d8f3dc; color: #2d6a4f; }
+  .macro-item strong { color: #1b4332; font-weight: 700; }
+
+  .match-badge { display: inline-block; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; margin-bottom: 12px; line-height: 1.5; }
+  .match-high { background: rgba(82, 183, 136, 0.12); color: #1b4332; }
+  .match-med { background: rgba(245, 158, 11, 0.12); color: #b45309; }
+  .match-low { background: rgba(239, 68, 68, 0.1); color: #991b1b; }
+
+  /* 📡 باکس مانیتور زنده حرفه‌ای به سبک پلتفرم‌های بزرگ */
+  .live-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 18px; }
+  .stat-mini-card { 
+    background: #ffffff; 
+    border: 1px solid rgba(226, 232, 240, 0.8); 
+    border-radius: 20px; 
+    padding: 22px; 
+    text-align: right; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015); 
+    position: relative; 
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .stat-mini-card:hover {
+    border-color: rgba(82, 183, 136, 0.3);
+    box-shadow: 0 12px 30px rgba(45, 106, 79, 0.04);
+  }
+  .stat-mini-header { font-size: 13px; color: #64748b; font-weight: 700; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .stat-mini-val-wrapper { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .stat-mini-val { font-size: 28px; font-weight: 900; color: #0f172a; transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s; }
+  .stat-mini-footer { font-size: 12px; color: #94a3b8; font-weight: 500; }
+  
+  .live-change-badge { font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 8px; opacity: 0; transform: translateY(4px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  .live-change-badge.show-up { opacity: 1; transform: translateY(0); background: #e8f5e9; color: #1b5e20; }
+  .live-change-badge.show-down { opacity: 1; transform: translateY(0); background: #ffebee; color: #b71c1c; }
+
+  .pulse-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; position: relative; }
+  .pulse-dot::after { content: ''; width: 100%; height: 100%; background: inherit; border-radius: 50%; position: absolute; left: 0; top: 0; animation: pulseGlow 2s infinite ease-in-out; }
+  @keyframes pulseGlow { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(4); opacity: 0; } }
+  .val-highlight { color: #52b788 !important; }
+
+  /* 💳 بخش دکمه‌های انتخاب نحوه پرداخت */
+  .payment-options-group { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+  .pay-method-btn { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border: 1px solid #cbd5e1; border-radius: 14px; background: white; font-size: 13.5px; font-weight: 700; color: #334155; cursor: pointer; transition: all 0.2s; }
+  .pay-method-btn:hover { border-color: #2d6a4f; background: #f4fbf7; }
+  .pay-method-btn .icon-indicator { font-size: 15px; color: #64748b; }
+  .pay-method-btn.acc-primary { background: var(--primary-gradient); color: white; border: none; box-shadow: 0 4px 14px rgba(27, 67, 50, 0.15); }
+  .pay-method-btn.acc-primary .icon-indicator { color: white; }
+
+  /* 📊 طراحی فوق حرفه‌ای و کامل باکس نمودار سلامت */
+  .health-chart-box { 
+    background: #ffffff; 
+    border: 1px solid rgba(226, 232, 240, 0.8); 
+    border-radius: 20px; 
+    padding: 22px; 
+    margin-top: 18px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015); 
+  }
+  .chart-svg-container { 
+    position: relative; 
+    width: 100%; 
+    height: 140px; 
+    margin-top: 16px; 
+    overflow: visible;
+  }
+  .chart-grid-line { stroke: #f8fafc; stroke-width: 1.5; }
+  .chart-poly-line { fill: none; stroke: url(#chart-stroke-grad); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .chart-area-fill { fill: url(#chart-area-grad); opacity: 0.12; }
+  .chart-point { fill: #2d6a4f; stroke: #ffffff; stroke-width: 3; r: 5.5; transition: all 0.2s ease; cursor: pointer; }
+  .chart-point:hover { r: 8; fill: #52b788; stroke-width: 2; }
+
+  /* سوابق */
+  .invoice-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 22px; margin-bottom: 20px; position: relative; box-shadow: var(--shadow-sm); }
+  .invoice-card::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 6px; background: var(--primary-gradient); border-radius: 0 18px 18px 0; }
+  .invoice-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 12px; margin-bottom: 14px; }
+  .invoice-body { font-size: 13.5px; color: #334155; line-height: 1.6; }
+  .invoice-barcode { font-family: monospace; letter-spacing: 5px; background: #f4fbf7; padding: 4px 10px; border-radius: 6px; font-size: 11px; color: #74c69d; display: inline-block; margin-top: 8px; }
+
+  /* 🛍️ مانیتور رژیم فیت‌منت */
+  .health-monitor-card { background: var(--primary-gradient); color: white; border-radius: 22px; padding: 24px; margin-bottom: 22px; box-shadow: 0 12px 28px rgba(27, 67, 50, 0.15); }
+  .health-metric { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 10px; }
+  .progress-bar-container { background: rgba(255,255,255,0.12); height: 10px; border-radius: 6px; overflow: hidden; margin-top: 6px; margin-bottom: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #74c69d, #52b788); height: 100%; width: 0%; transition: width 0.8s ease; }
+
+  .cart-item { display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; margin-bottom: 10px; background: #f4fbf7; padding: 12px 16px; border-radius: 12px; border-right: 4px solid #2d6a4f; }
+  .cart-summary-box { background: rgba(45, 106, 79, 0.02); border: 1px solid rgba(45, 106, 79, 0.06); border-radius: 14px; padding: 18px; margin-top: 20px; }
+
+  /* 💎 مودال رسید */
+  .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.35); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; padding: 20px; animation: fadeIn 0.3s ease; }
+  .modal-content { background: #ffffff; padding: 32px; border-radius: 26px; width: 100%; max-width: 440px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); text-align: center; transform: scale(0.9); animation: popUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .success-icon-wrap { width: 72px; height: 72px; background: #d8f3dc; color: #2d6a4f; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 32px; font-weight: bold; box-shadow: 0 8px 20px rgba(45, 106, 79, 0.15); }
+
+  .demo-tabs { display: flex; gap: 8px; margin-bottom: 28px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; flex-wrap: wrap; }
+  .demo-tab-btn { background: none; border: none; padding: 12px 20px; font-weight: 700; cursor: pointer; color: #64748b; border-radius: 12px; font-size: 14px; transition: all 0.2s; }
+  .demo-tab-btn.active { background: rgba(45, 106, 79, 0.06); color: #2d6a4f; }
+  .demo-step-box { background: white; border: 1px solid rgba(0,0,0,0.04); border-radius: 24px; padding: 35px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="sidebar-mount"></div>
+  <main class="main">
+    <div class="topbar">
+      <button class="menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+      <div class="topbar-title">فیت‌منت</div>
+    </div>
+    <div class="content">
+      <span class="eyebrow">Enterprise Meal Management Solution</span>
+      <h1 class="page-title">سیستم مدیریت تغذیه فیت‌منت</h1>
+      <p class="page-subtitle">اعمال خودکار فیلترینگ دارویی بر روی سبد غذایی، مانیتورینگ بیومتریک زنده و صدور آنی فاکتورهای رمزنگاری‌شده.</p>
+
+      <div id="login-step" class="demo-step-box" style="max-width: 440px; margin: 40px auto;">
+        <h3 style="margin-bottom:8px; color:#1b4332; font-weight:800; font-size:18px;">🔐 ورود به پرتال سازمانی فیت‌منت</h3>
+        <p class="muted" style="margin-bottom:24px; font-size:13px;">حساب کاربری به طور پیش‌فرض ست شده است.</p>
+        
+        <div class="form-group" style="text-align:right; margin-bottom:16px;">
+          <label class="form-label" style="font-size:12.5px; font-weight:700; color:#334155;">شناسه کاربری سیستم</label>
+          <input type="text" id="username-input" class="form-control" value="zargol_kanani" style="direction:ltr; text-align:left; padding:12px; width:100%; border-radius:12px; border:1px solid #cbd5e1;">
+        </div>
+        
+        <div class="form-group" style="text-align:right; margin-bottom:24px;">
+          <label class="form-label" style="font-size:12.5px; font-weight:700; color:#334155;">گذرواژه امنیتی پلتفرم</label>
+          <input type="password" id="password-input" class="form-control" value="••••••••" style="direction:ltr; text-align:left; padding:12px; width:100%; border-radius:12px; border:1px solid #cbd5e1;">
+        </div>
+        
+        <button class="btn btn-primary" style="width:100%; justify-content:center; padding:12px; background:var(--primary-gradient); border:none; border-radius:12px; font-weight:700; color:white; cursor:pointer;" onclick="proceedToApp()">اتصال به شبکه فیت‌منت ←</button>
+      </div>
+
+      <div id="main-app-demo" style="display:none;">
+        
+        <div class="demo-tabs">
+          <button class="demo-tab-btn active" id="tab-profile-btn" onclick="switchTab('profile')">👤 ۱. اطلاعات سلامت </button>
+          <button class="demo-tab-btn" id="tab-menu-btn" onclick="switchTab('menu')">🍽 ۲.  سفارش غذا </button>
+          <button class="demo-tab-btn" id="tab-wallet-btn" onclick="switchTab('wallet')">💳 ۳. كيف پول(<span id="wallet-summary-val">850,000</span> ت)</button>
+          <button class="demo-tab-btn" id="tab-dashboard-btn" onclick="switchTab('dashboard')">🧾 ۴. تاريخچه سفارش (<span id="history-count">۰</span>)</button>
+        </div>
+
+        <div id="panel-profile">
+          <div class="luxury-card" style="max-width: 720px; margin: 0 auto;">
+            <h3 style="font-size:17px; margin-top:0; margin-bottom:8px; color:#1b4332; font-weight:800;">مشخصات بیومتریک و داروهای تحت کنترل</h3>
+            <p class="muted" style="font-size:13px; margin-bottom:24px; color:#64748b;">موتور هوش مصنوعی فیت‌منت با تحلیل تداخلات بالینی زیر، چیدمان منوی تغذیه را تغییر می‌دهد.</p>
+            
+            <div class="profile-grid">
+              <div class="form-group">
+                <label class="form-label">نام و شناسه‌ی کاربر</label>
+                <input type="text" class="form-control" value="زرگل کنعانی" disabled style="background:#f4fbf7; padding:11px; width:100%; border-radius:10px; border:1px solid #d8f3dc; font-weight:700; color:#2d6a4f;">
+              </div>
+              <div class="form-group">
+                <label class="form-label">سن</label>
+                <input type="number" id="user-age" class="form-control" value="22" style="padding:11px; width:100%; border-radius:10px; border:1px solid #cbd5e1;">
+              </div>
+              <div class="form-group">
+                <label class="form-label">وزن (Kg)</label>
+                <input type="number" id="user-weight" class="form-control" value="64" style="padding:11px; width:100%; border-radius:10px; border:1px solid #cbd5e1;">
+              </div>
+              <div class="form-group">
+                <label class="form-label">قد (Cm)</label>
+                <input type="number" id="user-height" class="form-control" value="168" style="padding:11px; width:100%; border-radius:10px; border:1px solid #cbd5e1;">
+              </div>
+            </div>
+
+            <div class="form-group" style="text-align:right; margin-top:16px;">
+  <label class="form-label" style="font-weight:700; color:#334155;">
+    🎯 هدف تغذیه و تناسب اندام
+  </label>
+
+  <div class="chip-group" id="goal-chips">
+    <div class="chip active-green" data-value="lose" onclick="selectProfileChip(this, 'goal')">
+      کاهش وزن و چربی
+    </div>
+
+    <div class="chip" data-value="gain" onclick="selectProfileChip(this, 'goal')">
+      افزایش حجم عضلانی
+    </div>
+
+    <div class="chip" data-value="maintain" onclick="selectProfileChip(this, 'goal')">
+      حفظ وزن و سبک زندگی سالم
+    </div>
+  </div>
+</div>
+
+<div class="form-group" style="text-align:right; margin-top:16px;">
+  <label class="form-label" style="font-weight:700; color:#334155;">
+    ⚠️ محدودیت‌های غذایی و شرایط سلامت
+  </label>
+
+  <div class="chip-group" id="restriction-chips">
+    <div class="chip active-green" data-value="none" onclick="selectProfileChip(this, 'restriction')">
+      بدون محدودیت غذایی
+    </div>
+
+    <div class="chip" data-value="diabetes" onclick="selectProfileChip(this, 'restriction')">
+      دیابت
+    </div>
+
+    <div class="chip" data-value="celiac" onclick="selectProfileChip(this, 'restriction')">
+      حساسیت به گلوتن (سلیاک)
+    </div>
+
+    <div class="chip" data-value="hypertension" onclick="selectProfileChip(this, 'restriction')">
+      فشار خون بالا
+    </div>
+  </div>
+</div>
+
+<div class="form-group" style="text-align:right; margin-top:16px; margin-bottom:28px;">
+  <label class="form-label" style="font-weight:700; color:#334155;">
+    💊 داروهای مصرفی
+  </label>
+
+  <div class="chip-group" id="medication-chips">
+    <div class="chip active-green" data-value="none" onclick="selectProfileChip(this, 'medication')">
+      داروی خاصی مصرف نمی‌کنم
+    </div>
+
+    <div class="chip" data-value="metformin" onclick="selectProfileChip(this, 'medication')">
+      متفورمین
+    </div>
+
+    <div class="chip" data-value="corticosteroids" onclick="selectProfileChip(this, 'medication')">
+      پردنیزولون (کورتون)
+    </div>
+
+    <div class="chip" data-value="losartan" onclick="selectProfileChip(this, 'medication')">
+      لوزارتان
+    </div>
+  </div>
+</div>
+
+            <button class="btn" style="width:100%; justify-content:center; padding:14px; background:var(--primary-gradient); color:white; border-radius:12px; font-weight:700; border:none; cursor:pointer;" onclick="saveProfileAndGoToMenu()">✓ ثبت و همگام‌سازی بیولوژیک منو</button>
+          </div>
+        </div>
+
+        <div id="panel-menu" style="display:none;">
+          <div class="demo-container">
+            <div>
+              <div class="health-monitor-card">
+                <h4 style="margin:0 0 14px 0; font-size:15px; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:10px; font-weight:800;">📊 خلاصه وضعیت سلامت شما</h4>
+                <div class="health-metric"><span>🎯 پروتکل هدف:</span><strong id="summary-goal">کاهش درصد چربی</strong></div>
+                <div class="health-metric"><span>⚠️ عارضه متابولیک:</span><strong id="summary-rest">فاقد عارضه</strong></div>
+                <div class="health-metric" style="margin-bottom:14px;"><span>💊 ردیاب دارویی:</span><strong id="summary-med" style="color:#ffb703;">بدون تداخل دارویی</strong></div>
+                
+                <div class="health-metric" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:10px;">
+                  <span>🔥 بار کالری دریافتی سبد:</span>
+                  <span><strong id="tracked-calories">0</strong> / 2000 kcal</span>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="progress-bar-fill" id="calories-progress"></div>
+                </div>
+              </div>
+
+              <div class="health-chart-box">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <span style="font-size:13.5px; font-weight:800; color:#0f172a;">📈 روند پویای سلامت و تطابق رژیم</span>
+                  <span style="font-size:11px; color:#15803d; font-weight:700; background:#f0fdf4; padding:4px 10px; border-radius:20px;">انطباق بیومتریک: ۹۴٪</span>
+                </div>
+                <div class="chart-svg-container">
+                  <svg width="100%" height="100%" viewBox="0 0 300 120" preserveAspectRatio="none" style="display:block; overflow:visible;">
+                    <defs>
+                      <linearGradient id="chart-stroke-grad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#10b981" />
+                        <stop offset="50%" stop-color="#059669" />
+                        <stop offset="100%" stop-color="#047857" />
+                      </linearGradient>
+                      <linearGradient id="chart-area-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#10b981" stop-opacity="1" />
+                        <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+                      </linearGradient>
+                    </defs>
+                    
+                    <line x1="0" y1="20" x2="300" y2="20" class="chart-grid-line" />
+                    <line x1="0" y1="60" x2="300" y2="60" class="chart-grid-line" />
+                    <line x1="0" y1="100" x2="300" y2="100" class="chart-grid-line" />
+                    
+                    <path d="M 10 100 Q 60 45 110 80 T 210 35 T 290 50 L 290 100 L 10 100 Z" class="chart-area-fill" />
+                    <path d="M 10 100 Q 60 45 110 80 T 210 35 T 290 50" class="chart-poly-line" />
+                    
+                    <circle cx="10" cy="100" class="chart-point" />
+                    <circle cx="60" cy="55" class="chart-point" />
+                    <circle cx="110" cy="80" class="chart-point" />
+                    <circle cx="160" cy="50" class="chart-point" />
+                    <circle cx="210" cy="35" class="chart-point" />
+                    <circle cx="290" cy="50" class="chart-point" />
+                  </svg>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:11px; color:#94a3b8; margin-top:12px; font-weight:600; padding:0 4px;">
+                  <span>شنبه</span><span>دوشنبه</span><span>چهارشنبه</span><span>جمعه (امروز)</span>
+                </div>
+              </div>
+
+              <div class="live-stats-grid">
+                <div class="stat-mini-card">
+                  <div class="stat-mini-header">
+                    <span><span class="pulse-dot" style="margin-left:6px;"></span>كاربران آنلاین</span>
+                    <span class="live-change-badge" id="badge-online"></span>
+                  </div>
+                  <div class="stat-mini-val-wrapper">
+                    <div class="stat-mini-val" id="val-online">234</div>
+                  </div>
+                  <div class="stat-mini-footer">در حال استفاده از پلتفرم</div>
+                </div>
+                
+                <div class="stat-mini-card">
+                  <div class="stat-mini-header">
+                    <span>📦 سفارش‌های ثبت‌شده امروز</span>
+                    <span class="live-change-badge" id="badge-orders"></span>
+                  </div>
+                  <div class="stat-mini-val-wrapper">
+                    <div class="stat-mini-val" id="val-orders">1542</div>
+                  </div>
+                  <div class="stat-mini-footer">سفارش‌های موفق ثبت‌شده امروز</div>
+                </div>
+              </div>
+
+              <div class="luxury-card" style="background: white; margin-bottom: 20px; margin-top:18px;">
+                <h3 class="card-title" style="font-size:15px; margin-top:0; margin-bottom:14px; font-weight:800; color:#1b4332;">🛒 سبد سفارش کاربری</h3>
+                <div id="cart-items-list">
+                  <p class="muted" style="font-size:13px;">هیچ آیتمی انتخاب نشده است.</p>
+                </div>
+                
+                <div id="cart-total-area" style="display:none;">
+                  <div class="cart-summary-box">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid #f1f5f9; padding-bottom:10px;">
+                      <span style="font-size:12.5px; color:#64748b;">جمع کل فاکتور تغذیه:</span>
+                      <strong id="total-price-display" style="font-weight:900; font-size:16px; color:#2d6a4f;">۰ تومان</strong>
+                    </div>
+                    
+                    <div style="font-size:12px; color:#475569; font-weight:700; margin-bottom:8px;">💳 متد تسویه حساب امن خود را انتخاب کنید:</div>
+                    <div class="payment-options-group">
+                      <button class="pay-method-btn acc-primary" onclick="executePaymentGate('wallet')">
+                        <span>⚡ پرداخت فوری از تراز تعهدی (کیف پول)</span>
+                        <span class="icon-indicator">❖</span>
+                      </button>
+                      <button class="pay-method-btn" onclick="executePaymentGate('shetab')">
+                        <span>💳 اتصال آنلاین به درگاه بانکی شتاب</span>
+                        <span class="icon-indicator">←</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="card-title" style="font-size:15px; margin-top:0; margin-bottom:14px; font-weight:800; color:#1b4332;">🥗 پیشنهادهای غذایی متناسب با پروفایل شما</h3>
+              <div id="results-area"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-wallet" style="display:none;">
+          <div class="luxury-card" style="max-width: 550px; margin: 0 auto; background: white;">
+            <h3 style="margin-top:0; color:#1b4332; font-size:16px; font-weight:800; margin-bottom:18px;">💳 تراز حسابداری و تخصیص اعتبار</h3>
+            <div style="background: #f4fbf7; border: 1px dashed rgba(45, 106, 79, 0.2); border-radius: 16px; padding: 22px; text-align: center; margin-bottom: 24px;">
+              <span style="font-size:13px; color:#64748b;">اعتبار مصوب تجاری:</span>
+              <h2 style="margin:6px 0 0 0; color:#1b4332; font-size:30px; font-weight:900;"><span id="wallet-balance-main">850,000</span> تومان</h2>
+            </div>
+            <h4 style="margin:0 0 12px 0; font-size:13px; color:#1b4332; font-weight:800;">➕ افزایش فوری شارژ امضا شده</h4>
+            <div class="wallet-presets" style="display:flex; gap:10px; margin-bottom:12px;">
+              <div class="chip" onclick="selectPresetWallet(100000)">۱۰۰,۰۰۰ ت</div>
+              <div class="chip" onclick="selectPresetWallet(200000)">۲۰۰,۰۰۰ ت</div>
+              <div class="chip" onclick="selectPresetWallet(500000)">۵۰۰,۰۰۰ ت</div>
+            </div>
+            <div class="form-group" style="margin-bottom:16px;">
+              <input type="number" id="wallet-custom-input" placeholder="یا مبلغ دلخواه خود را به تومان وارد کنید..." style="width:100%; padding:12px; border:1px solid #cbd5e1; border-radius:12px; font-size:13px; outline:none;">
+            </div>
+            <button class="btn" style="width:100%; justify-content:center; padding:12px; background:var(--primary-gradient); color:white; border-radius:12px; border:none; font-weight:700; cursor:pointer;" onclick="triggerWalletDeposit()">⚡ تایید و اتصال به شتاب</button>
+            <table class="tx-table" style="width:100%; margin-top:20px; border-collapse:collapse; font-size:12.5px;">
+              <thead>
+                <tr style="border-bottom:2px solid #e2e8f0; text-align:right;">
+                  <th style="padding:8px;">تاریخ</th>
+                  <th style="padding:8px;">نوع</th>
+                  <th style="padding:8px;">تغییرات تراز</th>
+                  <th style="padding:8px;">وضعیت</th>
+                </tr>
+              </thead>
+              <tbody id="tx-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="panel-dashboard" style="display:none;">
+          <div class="luxury-card" style="background: white;">
+            <h3 style="margin-top:0; margin-bottom:20px; color:#1b4332; font-weight:800; font-size:16px;">📜 لایو فاکتورها و سوابق توزیع در هاب</h3>
+            <div id="order-history-list">
+              <p class="muted" style="font-size:13.5px; text-align:center; padding:40px 0;">هیچ فاکتور رسمی صادر نشده است.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="payment-modal" class="modal">
+        <div class="modal-content">
+          <div class="success-icon-wrap">✓</div>
+          <h3 id="modal-payment-title" style="margin: 0 0 8px 0; color: #1b4332; font-weight: 800; font-size: 18px;">تراکنش موفقیت‌آمیز</h3>
+          <p style="font-size: 13.5px; color: #64748b; margin: 0 0 20px 0;">سفارش شما ثبت شد و فاکتور الکترونیکی به هاب توزیع ارسال گردید.</p>
+          <div id="modal-invoice-details" style="background: #f4fbf7; border-radius: 14px; padding: 16px; margin-bottom: 24px; text-align: right; font-size: 13px; border: 1px solid #d8f3dc;"></div>
+          <button class="btn" style="width:100%; background: #1b4332; color:white; border:none; padding:11px; border-radius:12px; font-weight:700; cursor:pointer;" onclick="closePaymentModal()">بازگشت به برنامه</button>
+        </div>
+      </div>
+
+      <div id="footer-nav-mount" class="page-footer-nav"></div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script>
+renderSidebar('demo.html');
+renderFooterNav('demo.html');
+
+let walletBalance = 850000;
+let totalConsumedCalories = 0;
+let liveOnlineUsers = 234;
+let liveTodayOrders = 1542;
+
+let financialTransactions = [
+  { date: "04/05", type: "افزایش اعتبار شتاب", amount: 500000, isPositive: true, status: "موفق" },
+  { date: "04/04", type: "خرید بسته غذایی", amount: 145000, isPositive: false, status: "موفق" }
+];
+
+const baseFoodMenu = [
+  { id: 1, name: "سالاد سزار تخصصی با فیله مرغ گریلی و سس آووکادو", restaurant: "کترینگ رژیمی فیت‌فود", price: 145000, goal: "lose", restriction: "none", medication: "none", deliveryTime: "۲۵ الی ۳۵", cal: 320, p: "32g", c: "12g", f: "14g", weight: "۳۸۰ گرم", desc: "بدون نان تست سفید، غنی شده با چربی‌های غیراشباع آووکادو.", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&w=200&q=80" },
+  { id: 2, name: "بشقاب فیله مرغ بخارپز و کینوا (کم سدیم و فاقد گلوتن)", restaurant: "رستوران سلامت گل سرخ", price: 195000, goal: "lose", restriction: "diabetes", medication: "metformin", deliveryTime: "۳۰ الی ۴۰", cal: 410, p: "45g", c: "28g", f: "6g", weight: "۴۲۰ گرم", desc: "کربوهیدرات پیچیده با شاخص گلایسمی پایین، کاملاً سیف برای متفورمین.", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=200&q=80" },
+  { id: 3, name: "پاستا آلفردو رژیمی با فیله بوقلمون (پروتئین خالص پلاس)", restaurant: "کافه انزا", price: 220000, goal: "gain", restriction: "none", medication: "none", deliveryTime: "۳۵ الی ۴۵", cal: 780, p: "52g", c: "85g", f: "18g", weight: "۵۰۰ گرم", desc: "مناسب برای فاز حجم‌گیری عضلانی، پاستای غلات کامل و سس شیر بادام.", img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=200&q=80" },
+  { id: 4, name: "ماهی سالمون نروژی با مارچوبه بخارپز (بدون سدیم و کورتون-سیف)", restaurant: "کترینگ دریایی ساحل", price: 245000, goal: "lose", restriction: "celiac", medication: "corticosteroids", deliveryTime: "۴۰ الی ۵۰", cal: 390, p: "38g", c: "8g", f: "22g", weight: "۳۵0 گرم", desc: "سرشار از امگا۳، هماهنگ با کورتیکواستروئیدها جهت کنترل احتباس مایعات ثانویه.", img: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=200&q=80" },
+  { id: 5, name: "میکس فیله تکه‌ای گوسفندی زغالی با برنج قهوه‌ای غنی شده", restaurant: "مطعم پروتئینی ارگانیک", price: 285000, goal: "gain", restriction: "none", medication: "none", deliveryTime: "۲۵ الی ۳۵", cal: 690, p: "58g", c: "70g", f: "16g", weight: "۴۸۰ گرم", desc: "تامین گلیکوژن و اسید آمینه‌های ضروری برای ریکاوری بعد از تمرینات سنگین.", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=200&q=80" },
+  { id: 6, name: "خوراک استیک بوقلمون مدیترانه‌ای (بدون نمک و چربی اشباع)", restaurant: "کترینگ ویوا-سلامت", price: 210000, goal: "maintain", restriction: "hypertension", medication: "losartan", deliveryTime: "۳۰ الی ۳۵", cal: 440, p: "400g", c: "20g", f: "8g", weight: "۴۰۰ گرم", desc: "پتاسیم بهینه‌سازی شده، کاملاً بدون سدیم جهت همخوانی با پروتکل لوزارتان.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=200&q=80" }
+];
+
+let currentCart = [];
+let orderHistory = [];
+let selectedGoal = 'lose';
+let selectedRestriction = 'none';
+let selectedMedication = 'none';
+
+function proceedToApp() {
+  document.getElementById('login-step').style.display = 'none';
+  document.getElementById('main-app-demo').style.display = 'block';
+  updateWalletDisplays();
+  renderFinancialTable();
+  runSmartRecommendation();
+}
+
+function updateWalletDisplays() {
+  document.getElementById('wallet-summary-val').innerText = walletBalance.toLocaleString();
+  document.getElementById('wallet-balance-main').innerText = walletBalance.toLocaleString();
+}
+
+function renderFinancialTable() {
+  const tbody = document.getElementById('tx-table-body');
+  tbody.innerHTML = '';
+  financialTransactions.forEach(tx => {
+    const sign = tx.isPositive ? "+" : "-";
+    const cssClass = tx.isPositive ? "style='color:#2d6a4f;'" : "style='color:#991b1b;'";
+    tbody.innerHTML += `<tr><td style="padding:8px;">${tx.date}</td><td style="padding:8px;">${tx.type}</td><td ${cssClass} dir="ltr" style="padding:8px;">${sign}${tx.amount.toLocaleString()}</td><td style="padding:8px;"><span style="color:#2d6a4f; font-weight:700;">${tx.status}</span></td></tr>`;
+  });
+}
+
+function switchTab(tab) {
+  const tabs = ['profile', 'menu', 'wallet', 'dashboard'];
+  tabs.forEach(t => {
+    document.getElementById(`tab-${t}-btn`).classList.remove('active');
+    document.getElementById(`panel-${t}`).style.display = 'none';
+  });
+  document.getElementById(`tab-${tab}-btn`).classList.add('active');
+  document.getElementById(`panel-${tab}`).style.display = 'block';
+  if(tab === 'dashboard') { renderHistoryUI(); }
+}
+
+function selectPresetWallet(val) {
+  document.getElementById('wallet-custom-input').value = val;
+}
+
+function triggerWalletDeposit() {
+  const amount = parseInt(document.getElementById('wallet-custom-input').value);
+  if(!amount || amount <= 0) return;
+  walletBalance += amount;
+  financialTransactions.unshift({ date: "04/05", type: "افزایش اعتبار شتاب", amount: amount, isPositive: true, status: "موفق" });
+  updateWalletDisplays();
+  renderFinancialTable();
+}
+
+function saveProfileAndGoToMenu() {
+  document.getElementById('summary-goal').innerText = document.querySelector('#goal-chips .chip.active-green').innerText;
+  document.getElementById('summary-rest').innerText = document.querySelector('#restriction-chips .chip.active-green').innerText;
+  document.getElementById('summary-med').innerText = document.querySelector('#medication-chips .chip.active-green').innerText;
+  runSmartRecommendation();
+  switchTab('menu');
+}
+
+function selectProfileChip(element, type) {
+  element.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active-green'));
+  element.classList.add('active-green');
+  const value = element.getAttribute('data-value');
+  if(type === 'goal') selectedGoal = value;
+  if(type === 'restriction') selectedRestriction = value;
+  if(type === 'medication') selectedMedication = value;
+}
+
+/* 📡 موتور فیلترینگ و تحلیل بالینی پیشرفته ۴ سطحی همراه با درج علت دقیق */
+function runSmartRecommendation() {
+  const resultsArea = document.getElementById('results-area');
+  resultsArea.innerHTML = '';
+
+  baseFoodMenu.forEach(food => {
+    let badgeText = "🎯 کاملاً مناسب و تایید‌شده";
+    let badgeClass = "match-high";
+
+    // ۱. بررسی تداخلات و هماهنگی‌های دارویی (بالاترین اولویت)
+    if (selectedMedication !== 'none') {
+      if (food.medication === selectedMedication) {
+        badgeText = "🛡️ ایمن (بهینه‌سازی شده برای متد دارویی شما)";
+        badgeClass = "match-high";
+      } else if (food.medication !== 'none' && food.medication !== selectedMedication) {
+        let medReason = "";
+        if(food.medication === 'metformin') medReason = "ریسک نوسان ناگهانی پاسخ گلیسمی کلاینت";
+        if(food.medication === 'corticosteroids') medReason = "تشدید احتباس اسمزی اسمولالیته و احتباس سدیم";
+        if(food.medication === 'losartan') medReason = "ناهمخوانی بالینی پتاسیم آزاد با فارماکوکینتیک دارو";
+        
+        badgeText = `❌ نامناسب (تداخل دارویی حاد: ${medReason})`;
+        badgeClass = "match-low";
+      } else {
+        badgeText = "⚠️ متناسب با شرایط شما (پروتکل مصرف با احتیاط دوز دارو)";
+        badgeClass = "match-med";
+      }
+    } 
+    // ۲. بررسی محدودیت‌های بالینی و پاتولوژیک (اولویت دوم)
+    else if (selectedRestriction !== 'none') {
+      if (food.restriction === selectedRestriction) {
+        badgeText = "🎯 كاملا مناسب";
+        badgeClass = "match-high";
+      } else if (food.restriction !== 'none' && food.restriction !== selectedRestriction) {
+        let restReason = "";
+        if(food.restriction === 'diabetes') restReason = "کربوهیدرات با گلیسمی بالا و ریسک بار انسولینی بالا";
+        if(food.restriction === 'celiac') restReason = "حاوی گلوتن پنهان و تحریک آنتی‌بادی‌های گوارشی";
+        if(food.restriction === 'hypertension') restReason = "بار سدیم بالا و ریسک فشار عروقی پس‌بار قلب";
+        
+        badgeText = `❌ نامناسب (${restReason})`;
+        badgeClass = "match-low";
+      } else {
+        badgeText = "⚠️ متناسب با شرایط شما (نیازمند کنترل دقیق حجم پرس)";
+        badgeClass = "match-med";
+      }
+    }
+    // ۳. بررسی اهداف رژیمی عادی
+    else {
+      if (food.goal === selectedGoal) {
+        badgeText = selectedGoal === 'lose' ? "🎯 بسیار مناسب (بهینه‌شده برای چربی‌سوزی و کات)" : "🎯 بسیار مناسب (بهینه‌شده برای هایپرتروفی عضلانی)";
+        badgeClass = "match-high";
+      } else {
+        let goalReason = selectedGoal === 'lose' ? "بار کالری و کربوهیدرات بالا" : "تراکم پروتئین و کالری کمتر از حد فاز حجم";
+        badgeText = `⚠️ نسبتاً مناسب (مغایرت جزیی با هدف اصلی: ${goalReason})`;
+        badgeClass = "match-med";
+      }
+    }
+
+    resultsArea.innerHTML += `
+      <div class="food-card">
+        <div class="food-img" style="background-image: url('${food.img}')"></div>
+        <div class="food-details">
+          <span class="match-badge ${badgeClass}">${badgeText}</span>
+          <h4>${food.name}</h4>
+          <div class="food-meta">🏪 زنجیره: <strong>${food.restaurant}</strong> | زمان ارسال: ${food.deliveryTime} دقیقه</div>
+          <div class="food-meta" style="color:#2d6a4f; font-weight:700;">📊 آنالیز انرژی: ${food.cal} کیلوکالری</div>
+          <div class="food-price">${food.price.toLocaleString()} تومان</div>
+          
+          <div class="food-hover-info">
+            <strong>📋 مشخصات بیومتریک و ماکروها:</strong>
+            <div style="margin:4px 0; color:#475569; line-height:1.5; font-size:12px;">${food.desc}</div>
+            <div style="font-size:11.5px; margin-bottom:5px;">⚖️ وزن تقریبی پرس: <strong>${food.weight}</strong></div>
+            <div class="macro-grid">
+              <div class="macro-item">پروتئین: <strong>${food.p}</strong></div>
+              <div class="macro-item">کربوهیدرات: <strong>${food.c}</strong></div>
+              <div class="macro-item">چربی کل: <strong>${food.f}</strong></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" style="font-size:12px; padding:8px 14px; font-weight:700; flex-shrink:0; margin-top:4px;" onclick="addFoodToCart(${food.id})">＋ انتخاب</button>
+      </div>
+    `;
+  });
+}
+
+function addFoodToCart(id) {
+  currentCart.push(baseFoodMenu.find(item => item.id === id));
+  renderCartUI();
+}
+
+function renderCartUI() {
+  const listArea = document.getElementById('cart-items-list');
+  const totalArea = document.getElementById('cart-total-area');
+  const totalDisplay = document.getElementById('total-price-display');
+  
+  if(currentCart.length === 0) {
+    listArea.innerHTML = '<p class="muted" style="font-size:13px;">هیچ آیتمی انتخاب نشده است.</p>';
+    totalArea.style.display = 'none';
+    return;
+  }
+  listArea.innerHTML = '';
+  let sumPrice = 0;
+  currentCart.forEach((item, idx) => {
+    sumPrice += item.price;
+    listArea.innerHTML += `
+      <div class="cart-item">
+        <div><strong>${item.name}</strong></div>
+        <button onclick="removeFoodFromCart(${idx})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:18px;">×</button>
+      </div>
+    `;
+  });
+  totalDisplay.innerText = sumPrice.toLocaleString() + " تومان";
+  totalArea.style.display = 'block';
+}
+
+function removeFoodFromCart(idx) {
+  currentCart.splice(idx, 1);
+  renderCartUI();
+}
+
+function executePaymentGate(method) {
+  let sumPrice = currentCart.reduce((sum, item) => sum + item.price, 0);
+  if (sumPrice <= 0) return;
+
+  if (method === 'wallet') {
+    if (walletBalance < sumPrice) { 
+      alert("⚠️ تراز تعهدی کیف پول شما برای این سفارش کافی نیست. لطفاً حساب را شارژ یا از درگاه شتاب استفاده کنید."); 
+      return; 
+    }
+    walletBalance -= sumPrice;
+    financialTransactions.unshift({ date: "04/05", type: "خرید بسته غذایی (تعهدی)", amount: sumPrice, isPositive: false, status: "موفق" });
+    document.getElementById('modal-payment-title').innerText = "تراکنش موفق (کیف پول)";
+  } else {
+    document.getElementById('modal-payment-title').innerText = "تراکنش موفق (شتاب بانکی)";
+  }
+
+  currentCart.forEach(item => { totalConsumedCalories += item.cal; });
+  document.getElementById('tracked-calories').innerText = totalConsumedCalories;
+  document.getElementById('calories-progress').style.width = Math.min((totalConsumedCalories / 2000) * 100, 100) + "%";
+  
+  const orderId = Math.floor(100000 + Math.random() * 900000);
+  const itemNames = currentCart.map(i => i.name).join(' ، ');
+  
+  orderHistory.unshift({ id: orderId, date: "1405/04/05", items: [...currentCart], total: sumPrice });
+  document.getElementById('history-count').innerText = orderHistory.length;
+  
+  document.getElementById('modal-invoice-details').innerHTML = `
+    <div><strong>📦 اقلام فاکتور:</strong> ${itemNames}</div>
+    <div style="margin-top:6px;"><strong>🧾 شناسه رهگیری:</strong> #${orderId}</div>
+    <div style="margin-top:6px;"><strong>💳 مبلغ پرداخت‌شده:</strong> ${sumPrice.toLocaleString()} تومان</div>
+    <div style="margin-top:6px; color:#2d6a4f;"><strong>🔐 متد تایید تعهد:</strong> ${method === 'wallet' ? 'کیف پول سازمانی' : 'شتاب زنده'}</div>
+  `;
+  
+  document.getElementById('payment-modal').style.display = 'flex';
+  currentCart = [];
+  renderCartUI();
+  updateWalletDisplays();
+  renderFinancialTable();
+}
+
+function closePaymentModal() {
+  document.getElementById('payment-modal').style.display = 'none';
+}
+
+function renderHistoryUI() {
+  const historyList = document.getElementById('order-history-list');
+  if (orderHistory.length === 0) return;
+  historyList.innerHTML = '';
+  orderHistory.forEach(order => {
+    const names = order.items.map(i => i.name).join(' + ');
+    historyList.innerHTML += `
+      <div class="invoice-card">
+        <div class="invoice-header">
+          <span style="font-weight:800; color:#1b4332; font-size:14px;">🧾 فاکتور رسمی توزیع هاب شماره #${order.id}</span>
+          <span style="font-size:12px; color:#64748b;">📅 ${order.date}</span>
+        </div>
+        <div class="invoice-body">
+          <div style="margin-bottom:6px;"><strong>اقلام ارسالی:</strong> ${names}</div>
+          <div><strong>مبلغ کل فاکتور مصوب:</strong> <span style="color:#2d6a4f; font-weight:800;">${order.total.toLocaleString()} تومان</span></div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+            <span style="color:#2d6a4f; font-weight:800; font-size:12px;">🟢 تحویل اکسپرس به کلاینت فیت‌منت موفق</span>
+            <div class="invoice-barcode">||||| ${order.id} |||||</div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+// 📡 مانیتور لایو پلتفرم با انیمیشن‌های پیشرفته زمان واقعی
+setInterval(() => {
+  if(document.getElementById('main-app-demo').style.display === 'block') {
+    let userChange = Math.floor(Math.random() * 6) - 3;
+    if(userChange === 0) userChange = 1;
+    liveOnlineUsers = Math.max(190, liveOnlineUsers + userChange);
+    
+    const onlineEl = document.getElementById('val-online');
+    const badgeOnline = document.getElementById('badge-online');
+    
+    if(onlineEl && badgeOnline) {
+      onlineEl.innerText = liveOnlineUsers;
+      onlineEl.classList.add('val-highlight');
+      badgeOnline.innerText = userChange > 0 ? `▲ +${userChange}` : `▼ ${userChange}`;
+      badgeOnline.className = userChange > 0 ? "live-change-badge show-up" : "live-change-badge show-down";
+      
+      setTimeout(() => { 
+        badgeOnline.classList.remove('show-up', 'show-down'); 
+        onlineEl.classList.remove('val-highlight');
+      }, 2200);
+    }
+  }
+}, 4500);
+</script>
+</body>
+</html>
