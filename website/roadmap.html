@@ -5,81 +5,203 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>نقشه راه توسعه | فيت‌منت</title>
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* ساختار والد تایم‌لاین پویا */
+  .roadmap-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* کارت‌های پله‌ای نقشه راه */
+  .timeline-step-card {
+    background: var(--bg-card); 
+    border: 1px solid rgba(0, 0, 0, 0.06); 
+    border-radius: 12px; 
+    padding: 20px; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    display: flex; 
+    gap: 20px; 
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  /* رنگ‌بندی لبه‌های کناری متناسب با فازهای زمانی */
+  .step-mvp { border-right: 4px solid var(--green); }
+  .step-mid { border-right: 4px solid var(--navy); }
+  .step-future { border-right: 4px solid #E07A5F; }
+
+  /* استایل نشان‌های زمان‌بندی */
+  .step-badge {
+    font-weight: 700; 
+    padding: 8px 12px; 
+    border-radius: 8px; 
+    min-width: 80px; 
+    text-align: center; 
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .badge-mvp { background: rgba(45, 106, 79, 0.08); color: var(--green); }
+  .badge-mid { background: rgba(27, 73, 101, 0.08); color: var(--navy); }
+  .badge-future { background: rgba(224, 122, 95, 0.08); color: #E07A5F; }
+
+  .step-text-container {
+    flex: 1;
+  }
+
+  /* افکت تعاملی هوشمند روی کارت‌ها */
+  .timeline-step-card:hover {
+    transform: translateX(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    background: rgba(0, 0, 0, 0.01) !important;
+  }
+
+  /* استایل لیست‌های مقایسه‌ای امکانات */
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 0 0;
+    font-size: 13.5px;
+  }
+
+  .feature-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .feature-list li::before {
+    content: "•";
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .feature-list.implemented li::before { color: var(--green); }
+  .feature-list.upcoming li::before { color: #E07A5F; }
+
+  /* هاور کارت‌های چالش و ریسک */
+  .risk-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 22px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  .risk-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  /* مدیریت واکنش‌گرایی کامل برای ابعاد مختلف نمایشگرها */
+  @media (max-width: 768px) {
+    .timeline-step-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+    }
+    .step-badge {
+      min-width: unset;
+      width: auto;
+      padding: 4px 10px;
+    }
+  }
+</style>
 </head>
 <body>
 <div class="app">
   <div id="sidebar-mount"></div>
   <main class="main">
     <div class="topbar">
-      <button class="menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+      <button class="menu-toggle" onclick="toggleMobileSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="15" y2="6"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg>
+      </button>
       <div class="topbar-title">صفحه ۱۲ · نقشه راه توسعه</div>
     </div>
     <div class="content">
       <span class="eyebrow">از MVP تا کسب‌وکار واقعی</span>
       <h1 class="page-title">نقشه راه توسعه کسب‌وکار</h1>
-      <p class="page-subtitle">مسیر تبدیل نسخه نمایشی فعلی به یک محصول کامل و قابل استفاده در بازار.</p>
+      <p class="page-subtitle">مسیر تبدیل نسخه ساختاریافته فعلی به یک محصول متصل به شبکه و مقیاس‌پذیر در بازار سلامت.</p>
 
-      <h2 class="section-title"><span class="dot"></span>تایم‌لاین توسعه</h2>
-      <div class="card">
-        <div class="timeline">
-          <div class="timeline-step">
-            <div class="timeline-dot">۰</div>
-            <h3 class="card-title" style="font-size:14px">نسخه فعلی (MVP)</h3>
-            <p class="muted" style="font-size:12.5px">ثبت پروفایل تغذیه‌ای، دموی فیلتر و رتبه‌بندی غذا روی منوی نمونه، نمایش بوم کسب‌وکار و تحلیل بازار.</p>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot">۳م</div>
-            <h3 class="card-title" style="font-size:14px">برنامه سه‌ماهه</h3>
-            <p class="muted" style="font-size:12.5px">عضوگیری ۱۰-۱۵ رستوران واقعی، اتصال درگاه پرداخت، ساخت اپلیکیشن موبایل ساده، آزمون میدانی با ۵۰۰ کاربر اولیه.</p>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot">۶م</div>
-            <h3 class="card-title" style="font-size:14px">برنامه شش‌ماهه</h3>
-            <p class="muted" style="font-size:12.5px">افزودن همکاری با متخصصان تغذیه، برنامه غذایی اختصاصی پولی، گسترش به شهر دوم، بهبود دقت الگوریتم پیشنهاددهی.</p>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot">+۱۲م</div>
-            <h3 class="card-title" style="font-size:14px">نسخه آینده</h3>
-            <p class="muted" style="font-size:12.5px">اتصال به اپلیکیشن‌های ورزشی و سلامت، سیستم پایش پیشرفت کاربر، گسترش ملی.</p>
+      <h2 class="section-title"><span class="dot"></span>تایم‌لاین توسعه (Development Timeline)</h2>
+      <div class="roadmap-wrapper">
+        
+        <div class="timeline-step-card step-mvp">
+          <div class="step-badge badge-mvp">MVP</div>
+          <div class="step-text-container">
+            <h3 style="font-size:14.5px; color:var(--navy); margin:0 0 6px 0; font-weight:700;">نسخه فعلی (اعتبارسنجی اولیه)</h3>
+            <p class="muted" style="font-size:13px; line-height:1.7; margin:0;">پیاده‌سازی موفق موتور فیلترینگ ماکرومغذی‌ها، فرم تشکیل پروفایل بیولوژیکی، سیستم رتبه‌بندی غذا بر اساس دیتابیس لوکل SQLite و ارائه مستندات مدل مالی و نقطه سربه‌سر (۱۴۰ کاربر فعال).</p>
           </div>
         </div>
+
+        <div class="timeline-step-card step-mid">
+          <div class="step-badge badge-mid">۳ ماه آینده</div>
+          <div class="step-text-container">
+            <h3 style="font-size:14.5px; color:var(--navy); margin:0 0 6px 0; font-weight:700;">فاز یکپارچه‌سازی وب‌سرویس‌ها</h3>
+            <p class="muted" style="font-size:13px; line-height:1.7; margin:0;">توسعه معماری مبتنی بر API جهت اتصال به منوی کترینگ‌های رژیمی همکار، راه‌اندازی وب‌سرویس ایمن برای یکپارچه‌سازی درگاه بانکی مستقیم و اجرای پایلوت میدانی برای جذب اولین گروه از کاربران هدف.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step-card step-mid">
+          <div class="step-badge badge-mid">۶ ماه آینده</div>
+          <div class="step-text-container">
+            <h3 style="font-size:14.5px; color:var(--navy); margin:0 0 6px 0; font-weight:700;">فاز تجاری‌سازی و اشتراک پیشرفته</h3>
+            <p class="muted" style="font-size:13px; line-height:1.7; margin:0;">فعال‌سازی مدل اشتراک ماهانه پولی (۴۹,۰۰۰ تومانی)، پیاده‌سازی پنل اختصاصی پزشکان و متخصصان تغذیه جهت تایید دستی رژیم‌های حساس و توسعه الگوریتم یادگیری ترجیحات غذایی بر پایه بازخورد سفارش‌ها.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step-card step-future">
+          <div class="step-badge badge-future">۱۲+ ماه آینده</div>
+          <div class="step-text-container">
+            <h3 style="font-size:14.5px; color:var(--navy); margin:0 0 6px 0; font-weight:700;">بلوغ پلتفرم و توسعه ملی</h3>
+            <p class="muted" style="font-size:13px; line-height:1.7; margin:0;">ایجاد یکپارچگی (Integration) کامل با گجت‌های هوشمند ورزشی و پوشیدنی، پایش خودکار قند خون و کالری مصرفی روزانه کاربران در بک‌اند پلتفرم و مقیاس‌پذیری زیرساخت برای پوشش کترینگ‌های بزرگ سراسر کشور.</p>
+          </div>
+        </div>
+
       </div>
 
       <h2 class="section-title"><span class="dot"></span>امکانات فعلی در برابر نسخه بعدی</h2>
       <div class="grid-2">
-        <div class="card">
-          <span class="pill pill-green">پیاده‌سازی شده</span>
-          <ul style="margin-top:14px;font-size:13.5px">
-            <li style="margin-bottom:8px">▫ فرم پروفایل تغذیه‌ای (هدف، محدودیت)</li>
-            <li style="margin-bottom:8px">▫ موتور امتیازدهی و فیلتر غذا روی داده نمونه</li>
-            <li style="margin-bottom:8px">▫ نمایش برچسب تناسب (سبز/زرد/قرمز)</li>
-            <li>▫ صفحات کامل تحلیل کسب‌وکار</li>
+        <div class="risk-card" style="border-top: 3px solid var(--green);">
+          <span class="pill pill-green">پیاده‌سازی شده (MVP)</span>
+          <ul class="feature-list implemented">
+            <li>فرم هوشمند تعیین اهداف بدنی و محدودیت‌های رژیمی</li>
+            <li>موتور فیلترینگ و برچسب‌گذاری منوها (سبز/زرد/قرمز)</li>
+            <li>تثبیت الگوهای معماری داده با ساختار دیتابیس لوکال</li>
+            <li>تحلیل‌های ساختار هزینه، مدل درآمدی و زنجیره ارزش</li>
           </ul>
         </div>
-        <div class="card">
-          <span class="pill pill-orange">نسخه بعدی</span>
-          <ul style="margin-top:14px;font-size:13.5px">
-            <li style="margin-bottom:8px">▫ اتصال به منوی واقعی رستوران‌ها (API)</li>
-            <li style="margin-bottom:8px">▫ پرداخت آنلاین واقعی</li>
-            <li style="margin-bottom:8px">▫ یادگیری از سفارش‌های قبلی کاربر</li>
-            <li>▫ پنل مدیریت برای رستوران‌ها</li>
+        <div class="risk-card" style="border-top: 3px solid #E07A5F;">
+          <span class="pill pill-orange">برنامه توسعه آتی</span>
+          <ul class="feature-list upcoming">
+            <li>اتصال مستقیم به نرم‌افزار داخلی کترینگ‌ها (از طریق REST/SOAP)</li>
+            <li>اتصال به درگاه بانکی شاپرک و تسهیم خودکار سهم کمیسیون ۱۰ درصدی</li>
+            <li>پنل مانیتورینگ اختصاصی مدیریت سفارش‌ها برای کترینگ‌ها</li>
+            <li>سیستم فیدبک هوشمند و بهینه‌سازی سبد خرید بعدی مشتری</li>
           </ul>
         </div>
       </div>
 
-      <h2 class="section-title"><span class="dot"></span>چالش‌ها و ریسک‌ها</h2>
+      <h2 class="section-title"><span class="dot"></span>چالش‌ها و استراتژی‌های مدیریت ریسک</h2>
       <div class="grid-3">
-        <div class="card">
-          <h3 class="card-title" style="font-size:14px;color:var(--navy)">چالش فنی</h3>
-          <p class="muted" style="font-size:13px">دقت داده تغذیه‌ای منوها و نگهداری الگوریتم پیشنهاددهی در مقیاس بزرگ‌تر.</p>
+        <div class="risk-card" style="border-bottom: 2px solid var(--navy);">
+          <h3 class="card-title" style="font-size:14px; color:var(--navy); margin: 0 0 8px 0;">چالش فنی یکپارچه‌سازی</h3>
+          <p class="muted" style="font-size:13px; line-height:1.6; margin:0;">ناهمگون بودن سیستم‌های نرم‌افزاری کترینگ‌های مختلف؛ که با ارائه APIهای استاندارد فیت‌منت و اتصال وب‌سرویسی منظم برطرف می‌شود.</p>
         </div>
-        <div class="card">
-          <h3 class="card-title" style="font-size:14px;color:var(--orange)">چالش بازار</h3>
-          <p class="muted" style="font-size:13px">رقابت با پلتفرم‌های بزرگ‌تر و جذب همکاری رستوران‌های کوچک و متوسط.</p>
+        <div class="risk-card" style="border-bottom: 2px solid #E07A5F;">
+          <h3 class="card-title" style="font-size:14px; color:#E07A5F; margin: 0 0 8px 0;">چالش بازار و مقیاس</h3>
+          <p class="muted" style="font-size:13px; line-height:1.6; margin:0;">رقابت با پلتفرم‌های عمومی سفارش غذا؛ که استراتژی فیت‌منت تمرکز محض روی نیچ‌مارکت بیماران و ورزشکاران برای مهار این ریسک است.</p>
         </div>
-        <div class="card">
-          <h3 class="card-title" style="font-size:14px;color:var(--red)">چالش اعتماد</h3>
-          <p class="muted" style="font-size:13px">اعتمادسازی در حوزه‌ای حساس مثل سلامت و دقت پیشنهادهای مرتبط با بیماری.</p>
+        <div class="risk-card" style="border-bottom: 2px solid #d4a537;">
+          <h3 class="card-title" style="font-size:14px; color:#d4a537; margin: 0 0 8px 0;">صحت داده‌های پزشکی</h3>
+          <p class="muted" style="font-size:13px; line-height:1.6; margin:0;">حساسیت بالای بیماران سلیاکی و دیابتی؛ که با ممیزی سخت‌گیرانه آزمایشگاهی مواد اولیه کترینگ‌ها پیش از ورود به پلتفرم حل می‌شود.</p>
         </div>
       </div>
 

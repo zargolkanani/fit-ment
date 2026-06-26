@@ -5,55 +5,182 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تحلیل صنعت و رقبا | فيت‌منت</title>
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* ===== استایل‌های اختصاصی ارتقای بصری صفحه رقبا ===== */
+  .industry-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .industry-card:hover {
+    border-color: var(--navy);
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,0.04);
+    transform: translateY(-2px);
+  }
+
+  .comp-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* افکت هاور کارت‌های رقبا */
+  .comp-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.06);
+    border-color: var(--border-hover);
+  }
+
+  /* استایل پیشرفته جدول مقایسه‌ای */
+  .modern-table-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  
+  .modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+    font-size: 13.5px;
+  }
+  
+  .modern-table th {
+    background: linear-gradient(to bottom, var(--bg-card), var(--bg));
+    color: var(--text);
+    padding: 16px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--border);
+  }
+  
+  .modern-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+  }
+  
+  /* افکت هاور ردیف‌های جدول */
+  .modern-table tbody tr:hover td {
+    background: rgba(0, 0, 0, 0.01);
+    color: var(--text);
+  }
+  
+  /* تمایز ردیف فیت‌منت در جدول */
+  .modern-table tr.highlight-row td {
+    background: rgba(16, 185, 129, 0.04);
+    color: var(--text);
+    font-weight: 500;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+  }
+  .modern-table tr.highlight-row:hover td {
+    background: rgba(16, 185, 129, 0.08);
+  }
+
+  /* باکس‌های مزیت و تهدید */
+  .feature-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .feature-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: transparent;
+    transition: background 0.3s ease;
+  }
+  
+  .advantage-box:hover {
+    transform: translateY(-4px);
+    border-color: var(--green);
+    box-shadow: 0 12px 20px -8px rgba(16, 185, 129, 0.12);
+  }
+  .advantage-box:hover::before {
+    background: var(--green);
+  }
+  
+  .threat-box:hover {
+    transform: translateY(-4px);
+    border-color: var(--red);
+    box-shadow: 0 12px 20px -8px rgba(239, 68, 68, 0.12);
+  }
+  .threat-box:hover::before {
+    background: var(--red);
+  }
+</style>
 </head>
 <body>
 <div class="app">
+  <!-- سایدبار خودکار توسط ناوبری جاوااسکریپت -->
   <div id="sidebar-mount"></div>
+  
   <main class="main">
     <div class="topbar">
-      <button class="menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+      <button class="menu-toggle" onclick="toggleMobileSidebar()" title="منوی ناوبری">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="15" y2="6"></line>
+          <line x1="3" y1="18" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <div class="topbar-title">صفحه ۰۷ · تحلیل صنعت و رقبا</div>
     </div>
+    
     <div class="content">
       <span class="eyebrow">جایگاه در بازار</span>
       <h1 class="page-title">تحلیل صنعت و رقبا</h1>
-      <p class="page-subtitle">معرفی صنعت سفارش غذای آنلاین، روندهای کلیدی و مقایسه با رقبا و جایگزین‌ها.</p>
+      <p class="page-subtitle">بررسی وضعیت صنعت سفارش آنلاین غذا، روندهای کلیدی بازار و جایگاه استراتژیک فیت‌منت در مقایسه با رقبا.</p>
 
       <h2 class="section-title"><span class="dot"></span>صنعت و روندهای بازار</h2>
-      <div class="card">
-        <p>صنعت سفارش غذای آنلاین در ایران در سال‌های اخیر رشد قابل‌توجهی داشته و پلتفرم‌های بزرگی مثل اسنپ‌فود و دونات جای خود را در زندگی روزمره شهری باز کرده‌اند. در کنار این رشد، توجه عمومی به سلامت، تناسب اندام و رژیم‌های غذایی خاص نیز افزایش یافته — اما این دو روند هنوز به‌خوبی به هم متصل نشده‌اند.</p>
+      <div class="industry-card">
+        <p style="margin: 0; line-height: 1.7; font-size: 14px;">صنعت سفارش غذای آنلاین در ایران در سال‌های اخیر رشد قابل‌توجهی داشته و پلتفرم‌های تک‌وجهی جای خود را در زندگی روزمره شهری باز کرده‌اند. در کنار این رشد، توجه عمومی به سلامت، تناسب اندام و رژیم‌های غذایی خاص نیز افزایش یافته است؛ با این حال، پلتفرم‌های سنتی موجود هنوز فرآیند سفارش آنلاین را به متغیرهای سلامتی و داده‌های تغذیه‌ای متصل نکرده‌اند که این شکاف، فرصت اصلی ورود <strong>فیت‌منت</strong> است.</p>
       </div>
 
       <h2 class="section-title"><span class="dot"></span>رقبا و جایگزین‌ها</h2>
       <div class="grid-3">
-        <div class="card">
+        <div class="comp-card">
           <span class="pill pill-navy">رقیب مستقیم</span>
-          <h3 class="card-title" style="margin-top:10px">اسنپ‌فود</h3>
-          <p class="muted">بزرگ‌ترین پلتفرم سفارش غذای آنلاین کشور؛ تمرکز روی تنوع و سرعت تحویل، بدون فیلتر تغذیه‌ای.</p>
+          <h3 class="card-title" style="margin-top:12px; font-size: 16px;">اسنپ‌فود</h3>
+          <p class="muted" style="font-size: 13px; margin-bottom: 0;">بزرگ‌ترین پلتفرم سفارش غذای آنلاین کشور؛ تمرکز اصلی بر توده بازار، سرعت تحویل و تنوع بالا، بدون وجود هرگونه فیلتر تخصصی یا رژیمی.</p>
         </div>
-        <div class="card">
+        <div class="comp-card">
           <span class="pill pill-orange">رقیب غیرمستقیم</span>
-          <h3 class="card-title" style="margin-top:10px">اپلیکیشن‌های شمارش کالری</h3>
-          <p class="muted">برنامه‌هایی مثل MyFitnessPal که اطلاعات تغذیه‌ای می‌دهند اما به سفارش غذای آنلاین متصل نیستند.</p>
+          <h3 class="card-title" style="margin-top:12px; font-size: 16px;">اپلیکیشن‌های پایش کالری</h3>
+          <p class="muted" style="font-size: 13px; margin-bottom: 0;">برنامه‌های مدیریت رژیم و کالری‌شمار (نظیر کرفس و مانکن)؛ دارای بانک اطلاعاتی درشت‌مغذی‌ها اما کاملاً منقطع از چرخه سفارش واقعی غذا.</p>
         </div>
-        <div class="card">
+        <div class="comp-card">
           <span class="pill pill-yellow">جایگزین آفلاین</span>
-          <h3 class="card-title" style="margin-top:10px">مشاوره حضوری تغذیه</h3>
-          <p class="muted">مراجعه به متخصص تغذیه برای برنامه غذایی — هزینه بالاتر و بدون اتصال به سفارش روزانه.</p>
+          <h3 class="card-title" style="margin-top:12px; font-size: 16px;">مشاوره حضوری تغذیه</h3>
+          <p class="muted" style="font-size: 13px; margin-bottom: 0;">مراجعه به متخصصین و دریافت برنامه‌های سنتی؛ دارای دقت علمی بالا اما نیازمند هزینه زیاد، پخت‌وپز خانگی و بدون اتصال به بستر سفارش روزانه.</p>
         </div>
       </div>
 
-      <h2 class="section-title"><span class="dot"></span>جدول مقایسه‌ای</h2>
-      <div class="card table-card">
-        <table>
+      <h2 class="section-title"><span class="dot"></span>جدول ماتریس مقایسه‌ای رقبا</h2>
+      <div class="modern-table-container">
+        <table class="modern-table">
           <thead>
             <tr>
               <th>نام رقیب / جایگزین</th>
               <th>نوع خدمت</th>
               <th>مشتری هدف</th>
               <th>مدل درآمدی</th>
-              <th>نقطه قوت</th>
-              <th>نقطه ضعف</th>
+              <th>نقطه قوت کلیدی</th>
+              <th>نقطه ضعف کلیدی</th>
             </tr>
           </thead>
           <tbody>
@@ -61,33 +188,33 @@
               <td><strong>اسنپ‌فود</strong></td>
               <td>سفارش غذای عمومی</td>
               <td>عموم کاربران شهری</td>
-              <td>کمیسیون از رستوران</td>
-              <td>شبکه بزرگ رستوران و تحویل سریع</td>
-              <td>بدون فیلتر یا پیشنهاد بر اساس سلامت</td>
+              <td>کمیسیون از فروش رستوران</td>
+              <td>شبکه وسیع زنجیره تأمین و تحویل</td>
+              <td>عدم پشتیبانی از فیلترهای تغذیه‌ای و سلامت</td>
             </tr>
             <tr>
-              <td><strong>MyFitnessPal</strong></td>
+              <td><strong>اپلیکیشن‌های داخلی کالری‌شمار</strong></td>
               <td>پایش تغذیه و کالری</td>
               <td>ورزشکاران و رژیم‌دارها</td>
-              <td>اشتراک ماهانه (فریمیوم)</td>
-              <td>دقت بالا در محاسبه ماکروها</td>
-              <td>قطع از فرآیند سفارش واقعی غذا</td>
+              <td>مدل اشتراک ویژه (Freemium)</td>
+              <td>محاسبه دقیق درشت‌مغذی‌ها</td>
+              <td>انقطاع کامل از بستر تهیه و خرید آنلاین غذا</td>
             </tr>
             <tr>
               <td><strong>مشاور تغذیه حضوری</strong></td>
-              <td>مشاوره تخصصی</td>
-              <td>بیماران و افراد با رژیم سخت</td>
-              <td>حق مشاوره (ویزیت)</td>
-              <td>دقت علمی و شخصی‌سازی عمیق</td>
-              <td>هزینه بالا، بدون اتصال به سفارش روزانه</td>
+              <td>مشاوره تخصصی سلامتی</td>
+              <td>بیماران و افراد با شرایط خاص</td>
+              <td>حق ویزیت و مشاوره ثابت</td>
+              <td>شخصی‌سازی دقیق و تحت نظر پزشک</td>
+              <td>هزینه‌های بالا و سختی در تداوم و تکرار منو</td>
             </tr>
-            <tr style="background:var(--green-light)">
-              <td><strong>تناسب‌یار (ما)</strong></td>
-              <td>سفارش غذا + پیشنهاد تغذیه‌ای</td>
-              <td>رژیم‌دارها، بیماران، ورزشکاران</td>
-              <td>کمیسیون + اشتراک ویژه</td>
-              <td>تنها گزینه‌ای که سفارش و سلامت را یکجا می‌دهد</td>
-              <td>نیاز به همکاری دقیق رستوران‌ها برای داده تغذیه</td>
+            <tr class="highlight-row">
+              <td><strong>فیت‌منت (پلتفرم ما)</strong></td>
+              <td>سفارش غذا + فیلتر هوشمند تغذیه</td>
+              <td>ورزشکاران، بیماران، افراد پرمشغله</td>
+              <td>کمیسیون از رستوران + اشتراک ویژه</td>
+              <td>یکپارچه‌سازی کامل فرآیند خرید و پایش سلامت</td>
+              <td>نیاز اولیه به ترغیب کترینگ‌ها برای ثبت ماکروها</td>
             </tr>
           </tbody>
         </table>
@@ -95,24 +222,27 @@
 
       <h2 class="section-title"><span class="dot"></span>مزیت رقابتی و تهدیدها</h2>
       <div class="grid-2">
-        <div class="card">
-          <h3 class="card-title" style="color:var(--green)">مزیت رقابتی</h3>
-          <p class="muted">تناسب‌یار تنها گزینه‌ای است که فرآیند سفارش غذا را مستقیماً با شرایط سلامتی فردی کاربر پیوند می‌دهد؛ رقبای فعلی یا فقط روی سرعت/تنوع، یا فقط روی پایش تغذیه تمرکز دارند، نه هردو.</p>
+        <div class="feature-box advantage-box">
+          <h3 class="card-title" style="color:var(--green); font-size: 16px; margin-bottom: 10px;">مزیت رقابتی پایدار</h3>
+          <p class="muted" style="font-size: 13.5px; margin-bottom: 0; line-height: 1.6;"><strong>فیت‌منت</strong> تنها پلتفرم دووجهی است که فرآیند سفارش آنلاین غذا را مستقیماً با پروفایل سلامتی و ماکروهای فردی کاربر پیوند می‌زند. رقبای فعلی بازار یا صرفاً بر متغیر سرعت/تنوع تمرکز دارند و یا فقط پایش عددی انجام می‌دهند؛ فیت‌منت با پر کردن این خلاء، زنجیره ارزش متمایزی ایجاد کرده است.</p>
         </div>
-        <div class="card">
-          <h3 class="card-title" style="color:var(--red)">تهدیدهای اصلی بازار</h3>
-          <p class="muted">احتمال افزودن قابلیت مشابه توسط بازیگران بزرگ مثل اسنپ‌فود، دشواری جذب همکاری دقیق رستوران‌ها، و نیاز به اعتمادسازی بالا در حوزه‌ای حساس مثل سلامت.</p>
+        <div class="feature-box threat-box">
+          <h3 class="card-title" style="color:var(--red); font-size: 16px; margin-bottom: 10px;">تهدیدهای اصلی بازار</h3>
+          <p class="muted" style="font-size: 13.5px; margin-bottom: 0; line-height: 1.6;">احتمال کپی‌برداری و افزودن ویژگی‌های مشابه رژیمی توسط سوپراپلیکیشن‌های بزرگ بازار (مانند اسنپ‌فود)، چالش‌های مربوط به اعتمادسازی اولیه کاربران در ورود اطلاعات پزشکی، و ریسک عدم ورود دقیق داده‌های اولیه کالری توسط صاحبان رستوران‌ها.</p>
         </div>
       </div>
 
+      <!-- محل رندر دکمه‌های ناوبری فوتر -->
       <div id="footer-nav-mount" class="page-footer-nav"></div>
     </div>
   </main>
 </div>
+
 <script src="assets/js/nav.js"></script>
 <script>
-renderSidebar('competitors.html');
-renderFooterNav('competitors.html');
+  // رندر خودکار منوها برای فایل جاری
+  renderSidebar('competitors.html');
+  renderFooterNav('competitors.html');
 </script>
 </body>
 </html>

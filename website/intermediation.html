@@ -6,18 +6,118 @@
 <title>تحلیل واسطه‌گری | فيت‌منت</title>
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
-.intermediation-diagram {
-  display: flex; align-items: center; justify-content: center; gap: 0;
-  padding: 30px 10px; flex-wrap: wrap;
-}
-.id-node {
-  background: var(--bg-card); border: 2px solid var(--border); border-radius: 14px;
-  padding: 18px 22px; text-align: center; min-width: 140px;
-}
-.id-node.highlight { border-color: var(--green); background: var(--green-light); }
-.id-arrow { font-size: 22px; color: var(--text-muted); padding: 0 14px; }
-.value-func-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 800px) { .value-func-grid { grid-template-columns: 1fr; } .intermediation-diagram { flex-direction: column; } .id-arrow { transform: rotate(90deg); } }
+  /* استایل پیشرفته و تعاملی نقشه واسطه‌گری */
+  .intermediation-diagram {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px;
+    padding: 35px 15px; 
+    flex-wrap: wrap;
+    background: rgba(27, 73, 101, 0.02);
+    border-radius: 12px;
+    margin: 15px 0;
+  }
+  
+  .id-node {
+    background: var(--bg-card); 
+    border: 1px solid rgba(0, 0, 0, 0.08); 
+    border-radius: 14px;
+    padding: 20px 24px; 
+    text-align: center; 
+    min-width: 150px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+  }
+  
+  .id-node:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+  
+  .id-node.highlight { 
+    border-color: var(--green); 
+    background: linear-gradient(145deg, #ffffff, rgba(45, 106, 79, 0.03)); 
+  }
+  
+  .id-node.highlight:hover {
+    border-color: var(--green);
+    box-shadow: 0 8px 22px rgba(45, 106, 79, 0.1);
+  }
+
+  .node-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .id-arrow { 
+    font-size: 24px; 
+    color: var(--navy); 
+    padding: 0 16px; 
+    font-weight: bold;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+
+  .intermediation-diagram:hover .id-arrow {
+    letter-spacing: 3px;
+    color: var(--green);
+  }
+  
+  /* گرید کارکردهای ارزش‌آفرین */
+  .value-func-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+    gap: 20px; 
+  }
+
+  .inter-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .inter-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.05);
+  }
+
+  /* تعامل رنگی کارت‌ها بر اساس نوع ارزش در حالت هاور */
+  .card-ic-green:hover { border-color: var(--green); }
+  .card-ic-orange:hover { border-color: #E07A5F; }
+  .card-ic-navy:hover { border-color: var(--navy); }
+  .card-ic-red:hover { border-color: #d4a537; }
+
+  .card-header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .card-flex-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title-sub {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--navy);
+  }
+  
+  @media (max-width: 800px) { 
+    .value-func-grid { grid-template-columns: 1fr; } 
+    .intermediation-diagram { flex-direction: column; gap: 15px; padding: 25px 10px; } 
+    .id-arrow { transform: rotate(90deg); padding: 5px 0; } 
+    .intermediation-diagram:hover .id-arrow { letter-spacing: 0; transform: rotate(90deg) scale(1.1); }
+  }
 </style>
 </head>
 <body>
@@ -25,60 +125,110 @@
   <div id="sidebar-mount"></div>
   <main class="main">
     <div class="topbar">
-      <button class="menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+      <button class="menu-toggle" onclick="toggleMobileSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="15" y2="6"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg>
+      </button>
       <div class="topbar-title">صفحه ۱۰ · تحلیل واسطه‌گری</div>
     </div>
     <div class="content">
       <span class="eyebrow">جایگاه در زنجیره ارزش</span>
       <h1 class="page-title">تحلیل واسطه‌گری و زنجیره ارزش</h1>
-      <p class="page-subtitle">تناسب‌یار چطور بین کاربر و رستوران قرار می‌گیرد و چه نوع ارزشی از این واسطه‌گری ایجاد می‌شود.</p>
+      <p class="page-subtitle">فیت‌منت چطور بین کاربر و کترینگ قرار می‌گیرد و چه نوع ارزشی از این واسطه‌گری هوشمند ایجاد می‌شود.</p>
 
-      <h2 class="section-title"><span class="dot"></span>نقشه واسطه‌گری</h2>
-      <div class="card">
+      <h2 class="section-title"><span class="dot"></span>نقشه واسطه‌گری (Intermediation Map)</h2>
+      <div class="card" style="padding: 20px;">
         <div class="intermediation-diagram">
-          <div class="id-node">👤<br>کاربر</div>
+          <div class="id-node">
+            <span class="node-icon">👤</span>
+            <strong style="color:var(--navy);">کاربر نهایی</strong>
+            <div style="font-size:11px; color:#666; margin-top:4px;">جستجوگر غذای رژیمی</div>
+          </div>
           <div class="id-arrow">⇄</div>
-          <div class="id-node highlight">🧠<br>فيت‌منت<br><span style="font-size:11px;color:var(--text-muted)">(واسطه + پیشنهاددهی هوشمند)</span></div>
+          <div class="id-node highlight">
+            <span class="node-icon">🧠</span>
+            <strong style="color:var(--green);">پلتفرم فیت‌منت</strong>
+            <div style="font-size:11px; color:var(--navy); font-weight:600; margin-top:4px;">لایه تطبیق و پروژکشن ماکروها</div>
+          </div>
           <div class="id-arrow">⇄</div>
-          <div class="id-node">🏪<br>رستوران</div>
+          <div class="id-node">
+            <span class="node-icon">🏪</span>
+            <strong style="color:var(--navy);">کترینگ / رستوران</strong>
+            <div style="font-size:11px; color:#666; margin-top:4px;">تأمین‌کننده و پزنده منو</div>
+          </div>
         </div>
-        <p class="muted" style="text-align:center;margin-top:10px">پلتفرم نقش یک واسطه اصلی بین کاربران و رستوران‌ها را ایفا می‌کند و یک لایه جدید — سیستم پیشنهاددهی هوشمند — بین کاربر و انتخاب نهایی او قرار می‌دهد.</p>
+        <p class="muted" style="text-align:center; margin-top:15px; font-size:13.5px;">فیت‌منت یک واسطه ساده نیست؛ بلکه با قرار دادن لایه تحلیل و فیلترینگ خودکار در هسته ارتباطی، فرآیند تصمیم‌گیری کاربر را بر اساس نیازمندی‌های بیولوژیکی هدایت می‌کند.</p>
       </div>
 
       <h2 class="section-title"><span class="dot"></span>آیا ایده ذاتاً واسطه‌گر است؟</h2>
-      <div class="card">
-        <p>بله. این پلتفرم بین دو گروه اصلی — کاربران و رستوران‌ها — قرار می‌گیرد و فرآیند ارتباط، انتخاب و خرید را تسهیل می‌کند. با افزودن سیستم پیشنهاددهی، نقش واسطه‌گری از یک واسطه ساده به یک «تصمیم‌یار هوشمند» ارتقا می‌یابد.</p>
+      <div class="inter-card" style="border-right: 3px solid var(--green);">
+        <p style="line-height: 1.8; margin: 0; font-size: 14px;">
+          <strong>بله، فیت‌منت یک پلتفرم دووجهی (Two-Sided Platform) واسطه‌گر است.</strong> این پلتفرم با مدیریت جریان داده میان کاربران (تقاضا) و کترینگ‌های تخصصی (عرضه) تعادل ایجاد می‌کند. ارزش اصلی پلتفرم نه در تولید فیزیکی غذا، بلکه در فرآیند تسهیل، اعتمادسازی و کاهش عدم تقارن اطلاعاتی مابین مشخصات پزشکی کاربر و ترکیبات منو نهفته است.
+        </p>
       </div>
 
       <h2 class="section-title"><span class="dot"></span>کارکردهای ارزش‌آفرین واسطه‌گری</h2>
-      <div class="value-func-grid">
-        <div class="card">
-          <span class="pill pill-green">کاهش ارتباطات</span>
-          <p class="muted" style="margin-top:10px">کاربر به‌جای ارتباط جداگانه با چندین رستوران، فقط از یک پلتفرم واحد استفاده می‌کند و به تعداد زیادی رستوران دسترسی دارد.</p>
+      <div class="value-func-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="inter-card card-ic-green">
+          <div class="card-header-flex">
+            <div class="card-flex-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              <h4 class="card-title-sub" style="margin-right: 8px;">کاهش هزینه‌های تراکنش</h4>
+            </div>
+            <span class="pill pill-green">اقتصادی</span>
+          </div>
+          <p class="muted" style="font-size:13px; line-height:1.6; margin:0;">کاربر به‌جای جستجوی زمان‌بر در سایت‌ها و پیج‌های مختلف، به یک ویترین یکپارچه از آشپزخانه‌های رژیمی تأییدشده دسترسی دارد.</p>
         </div>
-        <div class="card">
-          <span class="pill pill-orange">افزایش مقیاس</span>
-          <p class="muted" style="margin-top:10px">با افزایش تعداد کاربران و رستوران‌های همکار، ارزش پلتفرم برای هر طرف بیشتر می‌شود (اثر شبکه).</p>
+
+        <div class="inter-card card-ic-orange">
+          <div class="card-header-flex">
+            <div class="card-flex-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E07A5F" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline></svg>
+              <h4 class="card-title-sub" style="margin-right: 8px;">بهینه‌سازی اثر شبکه‌ای</h4>
+            </div>
+            <span class="pill pill-orange">مقیاس‌پذیری</span>
+          </div>
+          <p class="muted" style="font-size:13px; line-height:1.6; margin:0;">با افزایش حجم کاربران فعال، کترینگ‌ها تمایل بیشتری به ارائه تخفیف و ارتقای کیفیت پکیج‌ها خواهند داشت که سود آن به شبکه بازمی‌گردد.</p>
         </div>
-        <div class="card">
-          <span class="pill pill-navy">ایجاد تخصص</span>
-          <p class="muted" style="margin-top:10px">سیستم پیشنهاددهی نوعی «تخصص تغذیه» را وارد فرآیند انتخاب غذا می‌کند، بدون این‌که کاربر خودش متخصص باشد.</p>
+
+        <div class="inter-card card-ic-navy">
+          <div class="card-header-flex">
+            <div class="card-flex-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <h4 class="card-title-sub" style="margin-right: 8px;">تزریق تخصص دیجیتال</h4>
+            </div>
+            <span class="pill pill-navy">فناوری</span>
+          </div>
+          <p class="muted" style="font-size:13px; line-height:1.6; margin:0;">سیستم هوشمند پلتفرم، ماکروها (کربوهیدرات، پروتئین و چربی) را دقیقاً پیش از ثبت نهایی فیلتر کرده و تخصص تغذیه را ساده‌سازی می‌کند.</p>
         </div>
-        <div class="card">
-          <span class="pill pill-red">کاهش ریسک</span>
-          <p class="muted" style="margin-top:10px">ریسک انتخاب غذای نامناسب با شرایط بدنی کاهش می‌یابد؛ امتیازدهی کاربران نیز ریسک انتخاب رستوران نامناسب را کم می‌کند.</p>
+
+        <div class="inter-card card-ic-red">
+          <div class="card-header-flex">
+            <div class="card-flex-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a537" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <h4 class="card-title-sub" style="margin-right: 8px;">کاهش ریسک سلامتی</h4>
+            </div>
+            <span class="pill pill-red">امنیت</span>
+          </div>
+          <p class="muted" style="font-size:13px; line-height:1.6; margin:0;">ریسک خروج کاربر از رژیم غذایی یا مصرف اشتباهی مواد قندی/چربی به حداقل می‌رسد؛ سیستم ریتینگ نیز کیفیت کترینگ‌ها را پایش می‌کند.</p>
         </div>
       </div>
 
-      <h2 class="section-title"><span class="dot"></span>واسطه‌های حذف‌شده و واسطه‌های جدید</h2>
+      <h2 class="section-title"><span class="dot"></span>دگرگونی زنجیره ارزش (Disintermediation vs Reintermediation)</h2>
       <div class="grid-2">
-        <div class="card">
-          <h3 class="card-title">واسطه‌هایی که ممکن است حذف شوند</h3>
-          <p class="muted">نیاز به جست‌وجوی دستی و جداگانه کاربر در هر رستوران، و تا حدی نیاز به مشاوره حضوری تغذیه برای انتخاب‌های روزمره.</p>
+        <div class="inter-card">
+          <div class="card-flex-title" style="margin-bottom: 12px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E07A5F" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <h3 class="card-title" style="margin: 0; font-size: 14.5px;">واسطه‌های سنتی حذف‌شده</h3>
+          </div>
+          <p class="muted" style="font-size: 13px; line-height: 1.6; margin: 0;">نیاز به تماس‌های مکرر تلفنی با آشپزخانه‌ها، جستجوهای سردرگم‌کننده در شبکه‌های اجتماعی نامعتبر، و فرآیند محاسبات کاغذی و دستی کالری‌ها توسط خود مشتری حذف می‌گردند.</p>
         </div>
-        <div class="card">
-          <h3 class="card-title">واسطه‌های جدیدی که ایجاد می‌شوند</h3>
-          <p class="muted">سیستم پیشنهاددهی هوشمند به‌عنوان یک لایه واسطه‌گری تازه بین کاربر و تصمیم نهایی او.</p>
+        
+        <div class="inter-card">
+          <div class="card-flex-title" style="margin-bottom: 12px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <h3 class="card-title" style="margin: 0; font-size: 14.5px;">واسطه مدرن جایگزین</h3>
+          </div>
+          <p class="muted" style="font-size: 13px; line-height: 1.6; margin: 0;">موتور تطبیق ماکرومغذی فیت‌منت به عنوان یک لایه فیلترینگ و تصمیم‌یار جدید (Cybermediary) متولد می‌شود که ضامن تطابق اهداف تناسب اندام با فاکتور خرید است.</p>
         </div>
       </div>
 

@@ -1,72 +1,322 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>طرح بازاریابی | فيت‌منت</title>
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طرح بازاریابی | فيت‌منت</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* بهبودها و افکت‌های هاور اختصاصی صفحه بازاریابی */
+    .marketing-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .marketing-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--green);
+      box-shadow: 0 8px 20px rgba(45, 106, 79, 0.08);
+    }
+
+    .card-icon-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(27, 73, 101, 0.06);
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .marketing-card:hover .icon-box {
+      background: var(--green);
+      color: #fff;
+    }
+
+    /* استایل بصری قیف بازاریابی تعاملی */
+    .funnel-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin: 25px 0;
+    }
+    
+    .funnel-layer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      color: #ffffff;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13.5px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .funnel-layer:hover {
+      transform: scale(1.015);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+      filter: brightness(1.1);
+    }
+
+    .funnel-layer .layer-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .funnel-layer .layer-badge {
+      background: rgba(255, 255, 255, 0.18);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    /* کدهای رنگی پله‌های قیف */
+    .fl-1 { background-color: var(--navy); width: 100%; }
+    .fl-2 { background-color: #235A7A; width: 92%; }
+    .fl-3 { background-color: var(--green); width: 84%; }
+    .fl-4 { background-color: #388460; width: 76%; }
+    .fl-5 { background-color: #E07A5F; width: 68%; }
+    .fl-6 { background-color: #D4A537; width: 60%; }
+
+    /* استایل بخش شاخص‌ها (KPIs) مقداردهی شده */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      padding: 22px 18px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--green);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+    }
+
+    .stat-num {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+      font-family: system-ui, -apple-system, sans-serif;
+      direction: ltr;
+    }
+
+    .stat-card:hover .stat-num {
+      color: var(--green);
+    }
+
+    .stat-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 6px;
+    }
+
+    /* بخش توضیح محاسبه شاخص‌ها */
+    .calc-note {
+      background: rgba(27, 73, 101, 0.04);
+      border-right: 3px solid var(--navy);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: 12.5px;
+      color: #444;
+      line-height: 1.9;
+    }
+    .calc-note strong { color: var(--navy); }
+    .calc-note code {
+      background: rgba(0,0,0,0.05);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      direction: ltr;
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
 <div class="app">
   <div id="sidebar-mount"></div>
   <main class="main">
     <div class="topbar">
-      <button class="menu-toggle" onclick="toggleMobileSidebar()">☰</button>
+      <button class="menu-toggle" onclick="toggleMobileSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="15" y2="6"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg>
+      </button>
       <div class="topbar-title">صفحه ۰۸ · طرح بازاریابی</div>
     </div>
+    
     <div class="content">
       <span class="eyebrow">جذب، اعتمادسازی، تبدیل</span>
       <h1 class="page-title">طرح بازاریابی</h1>
-      <p class="page-subtitle">استراتژی جذب کاربر و تبدیل آن به مشتری وفادار فيت‌منت.</p>
+      <p class="page-subtitle">استراتژی‌های ورود به بازار و مدل جذب کاربر بر اساس نیازمندی‌های ۳ گروه مشتری اصلی پلتفرم فیت‌منت.</p>
 
-      <h2 class="section-title"><span class="dot"></span>هدف و پیام اصلی</h2>
+      <h2 class="section-title"><span class="dot"></span>هدف و پیام استراتژیک</h2>
       <div class="grid-2">
-        <div class="card">
-          <h3 class="card-title">هدف بازاریابی اولیه</h3>
-          <p class="muted">جذب ۵۰۰ کاربر فعال اولیه و ۱۵ رستوران همکار در یک شهر، در سه ماه نخست، برای آزمون فرضیه اصلی محصول.</p>
+        <div class="marketing-card">
+          <div class="card-icon-header">
+            <div class="icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+            </div>
+            <h3 class="card-title" style="margin:0; color:var(--navy);">تمرکز فاز اول (MVP)</h3>
+          </div>
+          <p class="muted">جذب و اعتبارسازی ایده با دسترسی به حداقل ۵۰۰ کاربر فعال ماهانه (تکرار خرید بالای ۳۰٪) و ثبت‌نام اولیه ۱۵ کترینگ رژیمی و آشپزخانه تخصصی در محدوده جغرافیایی هدف طی ۹۰ روز اول کلید می‌خورد.</p>
         </div>
-        <div class="card">
-          <h3 class="card-title">پیام اصلی بازاریابی</h3>
-          <p class="muted">«غذایی سفارش بده که مناسب توست، نه فقط چیزی که سریع می‌رسد.» تمرکز پیام روی شخصی‌سازی و آرامش خاطر هنگام انتخاب غذا.</p>
+        <div class="marketing-card">
+          <div class="card-icon-header">
+            <div class="icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3 class="card-title" style="margin:0; color:var(--green);">شعار محوری برند</h3>
+          </div>
+          <p class="muted">«غذایی سفارش بده که مناسب توست، نه فقط چیزی که سریع می‌رسد.» تکیه بر آرامش خاطر مشتری هنگام انتخاب منو و حذف دغدغه‌های محاسبه شخصی کالری و درشت‌مغذی‌ها در خانه یا محل کار.</p>
         </div>
       </div>
 
       <h2 class="section-title"><span class="dot"></span>کانال‌های جذب مشتری</h2>
       <div class="grid-4">
-        <div class="card"><h3 class="card-title" style="font-size:14px">شبکه‌های اجتماعی</h3><p class="muted" style="font-size:12.5px">اینستاگرام، با محتوای آموزشی تغذیه و معرفی پیشنهادها</p></div>
-        <div class="card"><h3 class="card-title" style="font-size:14px">تبلیغات دیجیتال</h3><p class="muted" style="font-size:12.5px">تبلیغ هدفمند برای کاربران علاقه‌مند به سلامت و ورزش</p></div>
-        <div class="card"><h3 class="card-title" style="font-size:14px">سئو و محتوا</h3><p class="muted" style="font-size:12.5px">مقالات «غذای مناسب دیابت»، «غذای رژیمی بیرون از خانه»</p></div>
-        <div class="card"><h3 class="card-title" style="font-size:14px">بازاریابی ارجاعی</h3><p class="muted" style="font-size:12.5px">تخفیف برای معرفی به دوستان با شرایط مشابه</p></div>
-      </div>
-
-      <h2 class="section-title"><span class="dot"></span>قیف بازاریابی</h2>
-      <div class="card">
-        <div class="funnel">
-          <div class="funnel-step" style="background:#1B4965;width:100%">آگاهی — دیدن تبلیغ یا محتوا</div>
-          <div class="funnel-step" style="background:#2D6A4F;width:88%;margin-right:6%">علاقه‌مندی — مشاهده صفحه معرفی</div>
-          <div class="funnel-step" style="background:#3B7F61;width:74%;margin-right:13%">ارزیابی — تکمیل پروفایل تغذیه‌ای</div>
-          <div class="funnel-step" style="background:#E07A5F;width:60%;margin-right:20%">ثبت‌نام/خرید — اولین سفارش</div>
-          <div class="funnel-step" style="background:#D4A537;width:46%;margin-right:27%">استفاده مجدد — سفارش‌های بعدی</div>
-          <div class="funnel-step" style="background:#1B4965;width:32%;margin-right:34%">معرفی — دعوت دوستان</div>
+        <div class="marketing-card">
+          <div class="card-icon-header">
+            <div class="icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </div>
+            <h3 class="card-title" style="margin:0; font-size:14.5px;">میکرو اینفلوئنسرها</h3>
+          </div>
+          <p class="muted" style="font-size:13px; line-height:1.5;">تعامل با مربیان بدنسازی درجه B و مشاوران تغذیه برای نمایش نحوه ردیابی ماکروها و بررسی کیفیت بسته‌بندی محموله‌ها در شبکه‌های اجتماعی.</p>
+        </div>
+        
+        <div class="marketing-card">
+          <div class="card-icon-header">
+            <div class="icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon><line x1="22" y1="2" x2="11" y2="13"></line></svg>
+            </div>
+            <h3 class="card-title" style="margin:0; font-size:14.5px;">تبلیغات عملکردی</h3>
+          </div>
+          <p class="muted" style="font-size:13px; line-height:1.5;">اجرای کمپین‌های کلیکی هدفمند بر اساس موقعیت مکانی مجاور مراکز اداری و باشگاه‌ها، متمرکز روی کلمات کلیدی رژیم کتو، کنترل دیابت و غذای شرکتی سالم.</p>
+        </div>
+        
+        <div class="marketing-card">
+          <div class="card-icon-header">
+            <div class="icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3 class="card-title" style="margin:0; font-size:14.5px;">سئو و بازاریابی محتوا</h3>
+          </div>
+          <p class="muted" style="font-size:13px; line-height:1.5;">تولید راهنماهای کاربردی پیرامون عناوینی مثل «رژیم غذایی مناسب کبد چرب در بیرون از خانه» جهت جذب ارگانیک سرچ‌های بیماران و افراد پرمشغله.</p>
+        </div>
+        
+        <div class="marketing-card">
+          <div class="card-icon-header">
+            <div class="icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <h3 class="card-title" style="margin:0; font-size:14.5px;">سیستم ارجاع</h3>
+          </div>
+          <p class="muted" style="font-size:13px; line-height:1.5;">طراحی تخفیف‌های زنجیره‌ای متقابل؛ کاربر با معرفی کد خود به هم‌باشگاهی یا همکار خود، در سفارش بعدی هر دو طرف از بن تخفیف ۳۰ درصدی بهره‌مند می‌شوند.</p>
         </div>
       </div>
 
-      <h2 class="section-title"><span class="dot"></span>شاخص‌های سنجش موفقیت</h2>
-      <div class="grid-4">
-        <div class="stat-card"><div class="stat-num">CAC</div><div class="stat-label">هزینه جذب هر کاربر</div></div>
-        <div class="stat-card"><div class="stat-num">٪ بازگشت</div><div class="stat-label">نرخ سفارش مجدد ماهانه</div></div>
-        <div class="stat-card"><div class="stat-num">CTR</div><div class="stat-label">نرخ کلیک تبلیغات</div></div>
-        <div class="stat-card"><div class="stat-num">NPS</div><div class="stat-label">رضایت و تمایل به معرفی</div></div>
+      <h2 class="section-title"><span class="dot"></span>قیف تبدیل کاربر</h2>
+      <div class="marketing-card">
+        <p class="muted" style="margin-bottom: 20px; font-size:13.5px;">مراحل هدایت مخاطب از اولین برخورد با تبلیغات تا تبدیل به مشتری وفادار </p>
+        <div class="funnel-container">
+          <div class="funnel-layer fl-1">
+            <div class="layer-info"><span> ۱. آگاهی</span></div>
+            <div class="layer-badge">دیدن بنرهای آنلاین، ریلز اینستاگرام مربیان یا محتوای آموزشی وبلاگ فیت‌منت</div>
+          </div>
+          <div class="funnel-layer fl-2">
+            <div class="layer-info"><span> ۲. علاقه‌مندی</span></div>
+            <div class="layer-badge">ورود به لندینگ پیج پلتفرم و تعامل با دموی فیلترینگ هوشمند بر اساس میزان ماکروها</div>
+          </div>
+          <div class="funnel-layer fl-3">
+            <div class="layer-info"><span> ۳. سنجش و ارزیابی</span></div>
+            <div class="layer-badge">ثبت نام اولیه، تکمیل رایگان پروفایل مشخصات سلامتی و ثبت اهداف وزن یا قند خون</div>
+          </div>
+          <div class="funnel-layer fl-4">
+            <div class="layer-info"><span> ۴. اقدام به خرید</span></div>
+            <div class="layer-badge">سفارش اولین وعده غذای رژیمی یا تهیه اشتراک دوره هفتگی متصل به کترینگ‌ها</div>
+          </div>
+          <div class="funnel-layer fl-5">
+            <div class="layer-info"><span> ۵. حفظ و وفاداری</span></div>
+            <div class="layer-badge">بررسی مداوم نمودار سلامتی در پنل کاربری و تمدید مجدد بسته برای هفته‌های آتی</div>
+          </div>
+          <div class="funnel-layer fl-6">
+            <div class="layer-info"><span> ۶. حمایت و توصیه</span></div>
+            <div class="layer-badge">اشتراک‌گذاری خودجوش رضایت از رژیم و معرفی پلتفرم به اطرافیان با کدهای ارجاع اختصاصی</div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title"><span class="dot"></span>شاخص‌های کلیدی عملکرد (مقداردهی فاز اولیه)</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">۸۰,۰۰۰ تومان</div>
+          <div class="stat-label">هزینه جذب مشتری (CAC)</div>
+          <p class="muted" style="font-size: 11.5px; margin: 0;">میانگین بودجه تبلیغات و تخفیف معرفی صرف‌شده برای ثبت اولین سفارش کاربر جدید (مطابق فرض صفحه مدل درآمدی).</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">۵۴۰,۰۰۰ تومان</div>
+          <div class="stat-label">ارزش طول عمر مشتری (LTV)</div>
+          <p class="muted" style="font-size: 11.5px; margin: 0;">بر اساس ۱۸,۰۰۰ تومان کمیسیون هر سفارش × ۶ سفارش ماهانه × میانگین ۵ ماه ماندگاری کاربر در فاز اولیه.</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">۱ : ۶.۸</div>
+          <div class="stat-label">نسبت LTV به CAC</div>
+          <p class="muted" style="font-size: 11.5px; margin: 0;">حاصل تقسیم LTV بر CAC؛ نسبت بالای ۳ معمولاً نشانه سلامت اقتصادی واحد کسب‌وکار (Unit Economics) تلقی می‌شود.</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">۳۰٪</div>
+          <div class="stat-label">نرخ بازگشت ۳۰ روزه</div>
+          <p class="muted" style="font-size: 11.5px; margin: 0;">برابر با نرخ ماندگاری فرض‌شده در محاسبه LTV؛ معیار هدف برای سفارش دوم ظرف یک ماه از اولین خرید.</p>
+        </div>
+      </div>
+
+      <div class="calc-note">
+        <strong>روش محاسبه</strong><br>
+        درآمد هر سفارش = <code>۱۸۰,۰۰۰ × ۱۰٪ = ۱۸,۰۰۰ تومان</code> (طبق صفحه مدل درآمدی)<br>
+        درآمد ماهانه هر کاربر = <code>۱۸,۰۰۰ × ۶ سفارش = ۱۰۸,۰۰۰ تومان</code><br>
+        میانگین ماندگاری کاربر (با فرض نرخ ریزش ماهانه ۲۰٪ در فاز MVP) = <code>۱ ÷ ۰.۲۰ = ۵ ماه</code><br>
+        LTV = <code>۱۰۸,۰۰۰ × ۵ = ۵۴۰,۰۰۰ تومان</code> → نسبت به CAC ثابت‌شده (۸۰,۰۰۰ تومان) برابر <code>۶.۸</code><br>
+        این اعداد فرضیات آموزشی فاز ایده‌پردازی‌اند و باید پس از آزمون میدانی واقعی بازبینی شوند.
       </div>
 
       <div id="footer-nav-mount" class="page-footer-nav"></div>
     </div>
   </main>
 </div>
+
 <script src="assets/js/nav.js"></script>
 <script>
-renderSidebar('marketing.html');
-renderFooterNav('marketing.html');
+  renderSidebar('marketing.html');
+  renderFooterNav('marketing.html');
 </script>
 </body>
 </html>
