@@ -81,8 +81,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 14px;
 }
+.bmc-icon svg { width: 16px; height: 16px; fill: currentColor; }
+
 .bmc-head h4 {
   font-size: 14px;
   font-weight: 700;
@@ -142,14 +143,11 @@
 
       <div class="bmc-wrapper">
         
-        <!-- 🟥 ردیف بالایی بوم (۵ ستون استاندارد) -->
         <div class="bmc-top-row">
-          
-          <!-- ستون ۱: شرکای کلیدی -->
           <div class="bmc-col-20">
             <div class="bmc-box c-blue">
               <div class="bmc-head">
-                <div class="bmc-icon">🤝</div>
+                <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                 <h4>شرکای کلیدی</h4>
               </div>
               <ul class="bmc-list">
@@ -160,12 +158,10 @@
             </div>
           </div>
 
-          <!-- ستون ۲: فعالیت‌ها و منابع کلیدی (دو سلول عمودی) -->
           <div class="bmc-col-split">
-            <!-- فعالیت‌های کلیدی -->
             <div class="bmc-box c-teal">
               <div class="bmc-head">
-                <div class="bmc-icon">⚙️</div>
+                <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
                 <h4>فعالیت‌های کلیدی</h4>
               </div>
               <ul class="bmc-list">
@@ -173,10 +169,11 @@
                 <li class="bmc-item"><strong>تضمین پایگاه داده</strong>وارد کردن کالری و ارزش واقعی غذاهای منو.</li>
               </ul>
             </div>
-            <!-- منابع کلیدی -->
             <div class="bmc-box c-orange">
               <div class="bmc-head">
-                <div class="bmc-icon">🗂</div>
+                <div class="bmc-icon"><svg viewBox="0 0 24 24">
+  <path d="M2 7l9.5 4 9.5-4M5 12v6l7 3 7-3v-6M12 21V11"/>
+</svg></svg></div>
                 <h4>منابع کلیدی</h4>
               </div>
               <ul class="bmc-list">
@@ -186,11 +183,10 @@
             </div>
           </div>
 
-          <!-- ستون ۳: ارزش پیشنهادی (ستون مرکزی) -->
           <div class="bmc-col-20">
             <div class="bmc-box c-red" style="background: rgba(239, 68, 68, 0.01);">
               <div class="bmc-head">
-                <div class="bmc-icon">💎</div>
+                <div class="bmc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.5 6.5L22 10l-6 4 2 7-6-4-6 4 2-7-6-4 6.5-1.5z"/></svg></div>
                 <h4>ارزش‌های پیشنهادی</h4>
               </div>
               <ul class="bmc-list">
@@ -201,12 +197,10 @@
             </div>
           </div>
 
-          <!-- ستون ۴: ارتباط با مشتری و کانال‌ها (دو سلول عمودی) -->
           <div class="bmc-col-split">
-            <!-- ارتباط با مشتری -->
             <div class="bmc-box c-purple">
               <div class="bmc-head">
-                <div class="bmc-icon">🔁</div>
+                <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                 <h4>ارتباط با مشتری</h4>
               </div>
               <ul class="bmc-list">
@@ -214,10 +208,9 @@
                 <li class="bmc-item"><strong>اتوماسیون پیشنهادات</strong>یادگیری سیستم از تاریخچه سفارش‌های فرد.</li>
               </ul>
             </div>
-            <!-- کانال‌ها -->
             <div class="bmc-box c-pink">
               <div class="bmc-head">
-                <div class="bmc-icon">📡</div>
+                <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
                 <h4>کانال‌ها</h4>
               </div>
               <ul class="bmc-list">
@@ -227,73 +220,48 @@
             </div>
           </div>
 
-        <!-- ستون ۵: بخش مشتریان -->
-        <div class="bmc-col-20">
-          <div class="bmc-box c-indigo">
-            <div class="bmc-head">
-              <div class="bmc-icon">👥</div>
-              <h4>بخش مشتریان</h4>
+          <div class="bmc-col-20">
+            <div class="bmc-box c-indigo">
+              <div class="bmc-head">
+                <div class="bmc-icon"><svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 10-8 0 4 4 0 008 0z"/><path d="M4 21c0-3.5 3.5-6 8-6s8 2.5 8 6"/></svg></div>
+                <h4>بخش مشتریان</h4>
+              </div>
+              <ul class="bmc-list">
+                <li class="bmc-item"><strong>رژیم‌دارها و بدنسازان:</strong> افراد حساس به محاسبات آنلاین کالری و رژیم‌های تخصصی.</li>
+                <li class="bmc-item" style="margin-top: 10px;"><strong>بیماران با محدودیت غذایی:</strong> مبتلایان به دیابت، کبد چرب یا آلرژی‌های شدید.</li>
+                <li class="bmc-item" style="margin-top: 10px;"><strong>علاقه‌مندان به سبک زندگی سالم:</strong> شاغلین و دانشجویان پرمشغله.</li>
+              </ul>
             </div>
-            <ul class="bmc-list">
-              <!-- گروه اول: ورزشکاران -->
-              <li class="bmc-item">
-                <span class="pill pill-green" style="font-size: 9px; padding: 1px 4px; margin-left: 4px;">گروه ۱</span>
-                <strong>رژیم‌دارها و بدنسازان:</strong> 
-                افراد حساس به محاسبات آنلاین کالری، ماکرونوترینت‌ها و رژیم‌های تخصصی (کتوژنیک، کات یا حجم عضلانی).
-              </li>
-              
-              <!-- گروه دوم: بیماران -->
-              <li class="bmc-item" style="margin-top: 10px;">
-                <span class="pill pill-orange" style="font-size: 9px; padding: 1px 4px; margin-left: 4px;">گروه ۲</span>
-                <strong>بیماران با محدودیت غذایی:</strong> 
-                مبتلایان به دیابت، کبد چرب، کلسترول یا آلرژی‌های شدید که نیاز به منوهای بهداشتی و قند/چربی کنترل‌شده دارند.
-              </li>
-              
-              <!-- گروه سوم: افراد پرمشغله و متمایل به سلامت -->
-              <li class="bmc-item" style="margin-top: 10px;">
-                <span class="pill pill-navy" style="font-size: 9px; padding: 1px 4px; margin-left: 4px;">گروه ۳</span>
-                <strong>علاقه‌مندان به سبک زندگی سالم (پرمشغله):</strong> 
-                شاغلین و دانشجویانی که به دلیل ضیق وقت امکان آشپزی ندارند، اما تمایلی به مصرف فست‌فودهای مضر نداشته و به دنبال روتین غذایی پاک هستند.
-              </li>
-            </ul>
           </div>
         </div>
 
-        </div>
-
-        <!-- 🟩 ردیف پایینی بوم (۲ ستون مالی پهن) -->
         <div class="bmc-bottom-row">
-          
-          <!-- ساختار هزینه -->
           <div class="bmc-col-50">
             <div class="bmc-box c-gray">
               <div class="bmc-head">
-                <div class="bmc-icon">💰</div>
+                <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
                 <h4>ساختار هزینه‌ها</h4>
               </div>
               <ul class="bmc-list">
                 <li class="bmc-item"><strong>هزینه‌های فنی و توسعه:</strong> نگهداری سرور، امنیت سایت و ارتقای مداوم الگوریتم فیلترینگ هوشمند.</li>
-                <li class="bmc-item"><strong>هزینه بازاریابی (CAC):</strong> بودجه کمپین‌های دیجیتال مارکتینگ جهت جذب کاربران رژیمی جدید به پلتفرم.</li>
+                <li class="bmc-item"><strong>هزینه بازاریابی (CAC):</strong> بودجه کمپین‌های دیجیتال مارکتینگ جهت جذب کاربران رژیمی جدید.</li>
               </ul>
             </div>
           </div>
 
-          <!-- جریان‌های درآمدی -->
           <div class="bmc-col-50">
             <div class="bmc-box c-teal">
               <div class="bmc-head">
-                <div class="bmc-icon">📈</div>
+                <div class="bmc-icon"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/></svg></div>
                 <h4>جریان‌های درآمدی</h4>
               </div>
               <ul class="bmc-list">
-                <li class="bmc-item"><strong>مدل کمیسیون بر تراکنش:</strong> دریافت درصد کارمزد مشخص از کترینگ همکار به ازای هر سفارش ثبت‌شده.</li>
-                <li class="bmc-item"><strong>حق اشتراک پنل پرمیوم:</strong> درآمد حاصل از فروش ابزارهای پیشرفته برنامه‌ریزی و رژیم‌های هفتگی خودکار.</li>
+                <li class="bmc-item"><strong>مدل کمیسیون بر تراکنش:</strong> دریافت درصد کارمزد مشخص از کترینگ همکار به ازای هر سفارش.</li>
+                <li class="bmc-item"><strong>حق اشتراک پنل پرمیوم:</strong> درآمد حاصل از فروش ابزارهای پیشرفته برنامه‌ریزی.</li>
               </ul>
             </div>
           </div>
-
         </div>
-
       </div>
 
       <div id="footer-nav-mount" class="page-footer-nav"></div>
