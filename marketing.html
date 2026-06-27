@@ -99,12 +99,20 @@
     .fl-6 { background-color: #D4A537; width: 60%; }
 
     /* استایل بخش شاخص‌ها (KPIs) مقداردهی شده */
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
+
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:20px;
+}
+
+  @media (max-width:768px){
+    .stat-grid{
+        grid-template-columns:1fr;
     }
+}
+
+
 
     .stat-card {
       background: var(--bg-card);
@@ -275,38 +283,52 @@
         </div>
       </div>
 
-      <h2 class="section-title"><span class="dot"></span>شاخص‌های کلیدی عملکرد (مقداردهی فاز اولیه)</h2>
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-num">۸۰,۰۰۰ تومان</div>
-          <div class="stat-label">هزینه جذب مشتری (CAC)</div>
-          <p class="muted" style="font-size: 11.5px; margin: 0;">میانگین بودجه تبلیغات و تخفیف معرفی صرف‌شده برای ثبت اولین سفارش کاربر جدید (مطابق فرض صفحه مدل درآمدی).</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">۵۴۰,۰۰۰ تومان</div>
-          <div class="stat-label">ارزش طول عمر مشتری (LTV)</div>
-          <p class="muted" style="font-size: 11.5px; margin: 0;">بر اساس ۱۸,۰۰۰ تومان کمیسیون هر سفارش × ۶ سفارش ماهانه × میانگین ۵ ماه ماندگاری کاربر در فاز اولیه.</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">۱ : ۶.۸</div>
-          <div class="stat-label">نسبت LTV به CAC</div>
-          <p class="muted" style="font-size: 11.5px; margin: 0;">حاصل تقسیم LTV بر CAC؛ نسبت بالای ۳ معمولاً نشانه سلامت اقتصادی واحد کسب‌وکار (Unit Economics) تلقی می‌شود.</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">۳۰٪</div>
-          <div class="stat-label">نرخ بازگشت ۳۰ روزه</div>
-          <p class="muted" style="font-size: 11.5px; margin: 0;">برابر با نرخ ماندگاری فرض‌شده در محاسبه LTV؛ معیار هدف برای سفارش دوم ظرف یک ماه از اولین خرید.</p>
-        </div>
-      </div>
+<h2 class="section-title"><span class="dot"></span>شاخص‌های کلیدی عملکرد (مقداردهی فاز اولیه)</h2>
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-num">۳۰۰,۰۰۰ تومان</div>
+    <div class="stat-label">هزینه جذب مشتری (CAC)</div>
+    <p class="muted" style="font-size: 11.5px; margin: 0;">
+      میانگین هزینه تبلیغات دیجیتال، کمپین‌های معرفی و مشوق اولین سفارش برای جذب هر مشتری جدید در فاز MVP.
+    </p>
+  </div>
 
-      <div class="calc-note">
-        <strong>روش محاسبه</strong><br>
-        درآمد هر سفارش = <code>۱۸۰,۰۰۰ × ۱۰٪ = ۱۸,۰۰۰ تومان</code> (طبق صفحه مدل درآمدی)<br>
-        درآمد ماهانه هر کاربر = <code>۱۸,۰۰۰ × ۶ سفارش = ۱۰۸,۰۰۰ تومان</code><br>
-        میانگین ماندگاری کاربر (با فرض نرخ ریزش ماهانه ۲۰٪ در فاز MVP) = <code>۱ ÷ ۰.۲۰ = ۵ ماه</code><br>
-        LTV = <code>۱۰۸,۰۰۰ × ۵ = ۵۴۰,۰۰۰ تومان</code> → نسبت به CAC ثابت‌شده (۸۰,۰۰۰ تومان) برابر <code>۶.۸</code><br>
-        این اعداد فرضیات آموزشی فاز ایده‌پردازی‌اند و باید پس از آزمون میدانی واقعی بازبینی شوند.
-      </div>
+  <div class="stat-card">
+    <div class="stat-num">۱,۹۵۰,۰۰۰ تومان</div>
+    <div class="stat-label">ارزش طول عمر مشتری (LTV)</div>
+    <p class="muted" style="font-size: 11.5px; margin: 0;">
+      بر اساس کمیسیون ۶۵,۰۰۰ تومان از هر سفارش، میانگین ۶ سفارش ماهانه و ماندگاری ۵ ماهه هر کاربر.
+    </p>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-num">۱ : ۶.۵</div>
+    <div class="stat-label">نسبت LTV به CAC</div>
+    <p class="muted" style="font-size: 11.5px; margin: 0;">
+      حاصل تقسیم LTV بر CAC؛ نسبت بالاتر از ۳ نشان‌دهنده سلامت اقتصادی واحد کسب‌وکار است.
+    </p>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-num">۳۰٪</div>
+    <div class="stat-label">نرخ بازگشت ۳۰ روزه</div>
+    <p class="muted" style="font-size: 11.5px; margin: 0;">
+      درصد کاربرانی که حداکثر تا ۳۰ روز پس از اولین سفارش، حداقل یک سفارش مجدد ثبت می‌کنند.
+    </p>
+  </div>
+</div>
+
+<div class="calc-note">
+  <strong>روش محاسبه</strong><br>
+  میانگین ارزش هر سفارش = <code>۶۵۰,۰۰۰ تومان</code><br>
+  درآمد هر سفارش = <code>۶۵۰,۰۰۰ × ۱۰٪ = ۶۵,۰۰۰ تومان</code> (طبق مدل درآمدی)<br>
+  درآمد ماهانه هر کاربر = <code>۶۵,۰۰۰ × ۶ سفارش = ۳۹۰,۰۰۰ تومان</code><br>
+  میانگین ماندگاری کاربر (با فرض نرخ ریزش ماهانه ۲۰٪ در فاز MVP) = <code>۱ ÷ ۰.۲۰ = ۵ ماه</code><br>
+  LTV = <code>۳۹۰,۰۰۰ × ۵ = ۱,۹۵۰,۰۰۰ تومان</code> → نسبت به CAC (۳۰۰,۰۰۰ تومان) برابر <code>۶.۵</code><br>
+  این اعداد بر اساس فرضیات اولیه فاز MVP و میانگین قیمت سفارش‌های بازار ایران برآورد شده‌اند و پس از اجرای آزمایشی و تحلیل داده‌های واقعی کاربران بازبینی خواهند شد.
+</div>
+
+
 
       <div id="footer-nav-mount" class="page-footer-nav"></div>
     </div>
