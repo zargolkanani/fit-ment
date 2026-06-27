@@ -77,6 +77,13 @@
   font-size:14px;
 }
 
+.trust-icon svg{
+  width:18px;
+  height:18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width:2;
+}
 
 /* ⚡ بخش مشکل و راه‌حل تعاملی */
 .problem-solution { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -173,22 +180,40 @@
           <a href="demo.html" class="btn btn-primary">مشاهده دمو</a>
           <a href="business-model.html" class="btn btn-secondary">بوم کسب‌وکار</a>
         </div>
-        <div class="trust-row">
-          <div class="trust-item">
-  <span class="trust-icon">🥗</span>
-  <span>پیشنهاد متناسب با رژیم شما</span>
-</div>
+     <div class="trust-row">
 
-<div class="trust-item">
-  <span class="trust-icon">⏱️</span>
-  <span>صرفه‌جویی در زمان تصمیم‌گیری</span>
-</div>
+  <div class="trust-item">
+    <span class="trust-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l7 4v6c0 5-3.4 9.4-7 10-3.6-.6-7-5-7-10V6l7-4z"></path>
+        <path d="M9 12l2 2 4-5"></path>
+      </svg>
+    </span>
+    <span>پیشنهاد متناسب با رژیم شما</span>
+  </div>
 
-<div class="trust-item">
-  <span class="trust-icon">🤝</span>
-  <span>همکاری مستقیم با کترینگ‌ها</span>
+  <div class="trust-item">
+    <span class="trust-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M10 2h4v2h-4z"></path>
+        <path d="M6 4h12v18H6z"></path>
+        <path d="M9 9h6M9 13h6M9 17h4"></path>
+      </svg>
+    </span>
+    <span>صرفه‌جویی در زمان تصمیم‌گیری</span>
+  </div>
+
+  <div class="trust-item">
+    <span class="trust-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M20 8l-8-4-8 4 8 4 8-4z"></path>
+        <path d="M4 8v8l8 4 8-4V8"></path>
+      </svg>
+    </span>
+    <span>همکاری مستقیم با کترینگ‌ها</span>
+  </div>
+
 </div>
-        </div>
       </section>
 
       <h2 class="section-title"><span class="dot"></span>مشکل و راه‌حل</h2>
