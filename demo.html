@@ -467,22 +467,25 @@
             <div class="dash-chart-title">روند پایبندی و جذب کالری کاربران فیت‌منت</div>
             <div class="dash-chart-sub">میانگین صحت تغذیه: ۸۹.۴٪</div>
             <div class="dash-chart-svg-wrap">
-              <svg width="100%" height="100%" viewBox="0 0 300 75" preserveAspectRatio="none" style="overflow:visible;">
-                <defs>
-                  <linearGradient id="dashGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#52b788" stop-opacity="0.4" />
-                    <stop offset="100%" stop-color="#52b788" stop-opacity="0" />
-                  </linearGradient>
-                </defs>
-                <path d="M 10 60 Q 60 15 110 45 T 210 10 T 290 25 L 290 70 L 10 70 Z" class="chart-area-fill" />
-                <path d="M 10 60 Q 60 15 110 45 T 210 10 T 290 25" class="chart-poly-line" />
-                <circle cx="10" cy="60" class="chart-point" />
-                <circle cx="60" cy="18" class="chart-point" />
-                <circle cx="110" cy="45" class="chart-point" />
-                <circle cx="210" cy="10" class="chart-point" />
-                <circle cx="290" cy="25" class="chart-point" />
-              </svg>
-            </div>
+  <svg viewBox="0 0 300 95" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block; overflow: visible;">
+    <defs>
+      <linearGradient id="dashGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--fm-green)" stop-opacity="0.25"></stop>
+        <stop offset="100%" stop-color="var(--fm-green)" stop-opacity="0.0"></stop>
+      </linearGradient>
+    </defs>
+    
+    <path class="chart-area-fill" d="M 10 80 Q 75 20 150 55 T 290 15 L 290 95 L 10 95 Z" style="fill: url(#dashGrad); opacity: 0.15;"></path>
+    
+    <path class="chart-poly-line" d="M 10 80 Q 75 20 150 55 T 290 15" fill="none" stroke="var(--fm-green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+    
+    <circle class="chart-point" cx="10" cy="80" r="4.5" fill="var(--fm-green)" stroke="#ffffff" stroke-width="2"></circle>
+    <circle class="chart-point" cx="87" cy="32" r="4.5" fill="var(--fm-green)" stroke="#ffffff" stroke-width="2"></circle>
+    <circle class="chart-point" cx="150" cy="55" r="4.5" fill="var(--fm-green)" stroke="#ffffff" stroke-width="2"></circle>
+    <circle class="chart-point" cx="218" cy="40" r="4.5" fill="var(--fm-green)" stroke="#ffffff" stroke-width="2"></circle>
+    <circle class="chart-point" cx="290" cy="15" r="4.5" fill="var(--fm-green)" stroke="#ffffff" stroke-width="2"></circle>
+  </svg>
+</div>
           </div>
         </div>
       </div>
