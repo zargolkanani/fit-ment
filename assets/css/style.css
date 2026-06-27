@@ -92,7 +92,11 @@ img { max-width: 100%; display: block; }
 .topbar-title {
   font-size: 13px;
   color: var(--text-muted);
+  letter-spacing: -0.2px;        
+  font-family: 'Vazirmatn', sans-serif; 
+  text-transform: uppercase;    
 }
+
 
 .topbar-title strong {
   color: var(--text);
