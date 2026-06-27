@@ -7,41 +7,51 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
 .hero {
-  direction: rtl;
-  text-align: center; /* متن‌ها وسط‌چین */
-  max-width: 1100px;
-  margin: 0 auto 40px auto;
-  background: linear-gradient(135deg, var(--green-light) 0%, var(--bg) 60%);
-  border-radius: 20px;
-  padding: 56px 48px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* وسط‌چین کردن المان‌ها */
+  gap: 30px;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(236, 253, 245, 0.8) 0%, rgba(255, 255, 255, 0.9) 60%);  
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
   box-shadow: 0 10px 40px rgba(0,0,0,0.06);
 }
 
-.hero h1 {
-  font-size: 38px;
-  font-weight: 800;
-  line-height: 1.3;
-  max-width: 620px;
-  margin-bottom: 16px;
+/* ساختار بالا: شعار و آمار */
+.hero-top {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  align-items: center;
 }
 
-.hero p.lead {
-  font-size: 16px;
-  color: var(--text-muted);
-  max-width: 600px;
-  margin-bottom: 24px;
+.hero-content h1 {
+  text-align: right;
+  font-size: 32px;
+  line-height: 1.4;
+  margin-bottom: 20px;
 }
 
-.hero-cta {
+.hero-stats {
   display: flex;
-  gap: 12px;
-  margin-top: 28px;
-  justify-content: center; /* وسط‌چین کردن دکمه‌ها */
+  flex-direction: column;
+  gap: 15px;
 }
 
+/* ساختار پایین: توضیحات و دکمه‌ها و ویژگی‌ها */
+.hero-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 30px;
+}
+
+.hero-cta { justify-content: flex-start; }
+
+@media (max-width: 768px) {
+  .hero-top { grid-template-columns: 1fr; text-align: center; }
+  .hero-content h1 { text-align: center; }
+}
 .trust-row {
   display: flex;
   gap: 28px;
@@ -84,6 +94,52 @@
   fill: none;
   stroke-width:2;
 }
+
+/* استایل برای آمار آنلاین */
+.dash-stats-inline-row {
+  display: flex;
+  gap: 20px;
+  margin: 30px 0;
+  justify-content: center;
+}
+.dash-inline-stat-block {
+  /* استایل شیشه‌ای */
+  background: rgba(231, 239, 231, 0.306); /* زمینه سفید نیمه‌شفاف */
+  backdrop-filter: blur(10px);          /* مات کردن پشت کارت */
+  -webkit-backdrop-filter: blur(10px);
+  
+  border: 1px solid rgba(172, 172, 165, 0.4); /* حاشیه ملایم */
+  border-radius: 16px;
+  padding: 16px 24px;
+  min-width: 200px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* سایه بسیار ملایم */
+  transition: all 0.3s ease;
+}
+
+/* افکت هاور برای جذابیت بیشتر */
+.dash-inline-stat-block:hover {
+  background: rgba(219, 231, 217, 0.8);
+  transform: translateY(-2px);
+}
+
+.dash-stat-label { 
+  font-size: 12px; 
+  color: #4b5563; /* رنگ خاکستری تیره برای خوانایی بهتر روی شیشه */
+  display: flex; 
+  align-items: center; 
+  gap: 6px; 
+}
+
+.dash-stat-value { 
+  font-size: 20px; 
+  font-weight: 700; 
+  color: #111827; 
+  margin: 4px 0; 
+}
+.dash-stat-delta { font-size: 11px; font-weight: 600; }
+.dash-stat-delta.up { color: var(--green); }
+.pulse-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
 /* ⚡ بخش مشکل و راه‌حل تعاملی */
 .problem-solution { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -173,53 +229,65 @@
     <div class="content">
 
       <section class="hero">
-        <span class="eyebrow">پروژه تجارت الکترونیک · بهار ۱۴۰۵</span>
-        <h1>غذایی سفارش بده که با بدنت هم‌مسیر باشه، نه فقط با اشتیاقت.</h1>
-        <p class="lead">فيت‌منت در محدوده پیاده‌سازی خود، هنگام سفارش غذا گزینه‌های منو را بر اساس هدف، رژیم و شرایط سلامتی شما فیلتر و رتبه‌بندی می‌کند — بدون این‌که نیاز به دانش تخصصی تغذیه داشته باشید.</p>
-        <div class="hero-cta">
-          <a href="demo.html" class="btn btn-primary">مشاهده دمو</a>
-          <a href="business-model.html" class="btn btn-secondary">بوم کسب‌وکار</a>
-        </div>
-     <div class="trust-row">
+  <div class="hero-top" style="display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; width: 100%;">
+    
+    <div class="hero-content">
+      <span class="eyebrow">پروژه تجارت الکترونیک · بهار ۱۴۰۵</span>
+      <h1 style="font-weight: 900; font-size: 44px; text-align: right; line-height: 1.3;">
+        غذایی سفارش بده که با بدنت هم‌مسیر باشه،
+        <span style="color: var(--green); display: block; margin-top: 10px;">نه فقط با اشتیاقت.</span>
+      </h1>
+    </div>
 
-  <div class="trust-item">
-    <span class="trust-icon">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 2l7 4v6c0 5-3.4 9.4-7 10-3.6-.6-7-5-7-10V6l7-4z"></path>
-        <path d="M9 12l2 2 4-5"></path>
-      </svg>
-    </span>
-    <span>پیشنهاد متناسب با رژیم شما</span>
+    <div class="hero-stats" style="max-width: 220px; flex-shrink: 0;">
+  
+  <div class="dash-inline-stat-block" style="padding: 12px; margin-bottom: 10px;">
+    <div class="dash-stat-label" style="font-size: 11px; display: flex; align-items: center; gap: 5px;">
+      <span class="pulse-dot"></span> کاربران فعال پلتفرم
+    </div>
+    <div class="dash-stat-value" id="val-online" style="font-size: 18px; margin: 4px 0;">۳,۴۱۲</div>
+    <div class="dash-stat-delta up" style="font-size: 10px; color: var(--green);">▲ ۱۸٪ رشد این هفته</div>
   </div>
 
-  <div class="trust-item">
-    <span class="trust-icon">
-      <svg viewBox="0 0 24 24">
-        <path d="M10 2h4v2h-4z"></path>
-        <path d="M6 4h12v18H6z"></path>
-        <path d="M9 9h6M9 13h6M9 17h4"></path>
-      </svg>
-    </span>
-    <span>صرفه‌جویی در زمان تصمیم‌گیری</span>
+  <div class="dash-inline-stat-block" style="padding: 12px;">
+    <div class="dash-stat-label" style="font-size: 11px;">📦 کل سفارشات تا امروز</div>
+    <div class="dash-stat-value" id="val-orders" style="font-size: 18px; margin: 4px 0;">۴۸,۹۲۰</div>
+    <div class="dash-stat-delta up" style="font-size: 10px; color: var(--green);">▲ ۹۴ سفارش جدید امروز</div>
   </div>
-
-  <div class="trust-item">
-    <span class="trust-icon">
-      <svg viewBox="0 0 24 24">
-        <path d="M20 8l-8-4-8 4 8 4 8-4z"></path>
-        <path d="M4 8v8l8 4 8-4V8"></path>
-      </svg>
-    </span>
-    <span>همکاری مستقیم با کترینگ‌ها</span>
-  </div>
-
+  
 </div>
-      </section>
 
+  <div class="hero-bottom" style="width: 100%; border-top: 1px solid var(--border); margin-top: 30px; padding-top: 25px;">
+    <div class="lead-text" style="max-width: 700px; margin-bottom: 20px; line-height: 1.8; color: var(--text-muted);">
+      <p style="margin: 0;">فيت‌منت هنگام سفارش غذا، گزینه‌های منو را بر اساس هدف و شرایط سلامتی شما فیلتر و رتبه‌بندی می‌کند.</p>
+      <p style="margin: 5px 0 0 0;">دیگر نیازی به دانش تخصصی تغذیه ندارید؛ ما تمام پیچیدگی‌ها را برای شما به سادگی حل کرده‌ایم.</p>
+    </div>
+    
+    <div class="hero-cta" style="margin-bottom: 30px;">
+      <a href="demo.html" class="btn btn-primary">ورود به پنل</a>
+      <a href="business-model.html" class="btn btn-secondary">بوم کسب‌وکار</a>
+    </div>
+
+    <div class="trust-row" style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+      <div class="trust-item">
+        <span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3.4 9.4-7 10-3.6-.6-7-5-7-10V6l7-4z"></path><path d="M9 12l2 2 4-5"></path></svg></span>
+        <span>پیشنهاد متناسب با رژیم شما</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M10 2h4v2h-4z"></path><path d="M6 4h12v18H6z"></path><path d="M9 9h6M9 13h6M9 17h4"></path></svg></span>
+        <span>صرفه‌جویی در زمان تصمیم‌گیری</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M20 8l-8-4-8 4 8 4 8-4z"></path><path d="M4 8v8l8 4 8-4V8"></path></svg></span>
+        <span>همکاری مستقیم با کترینگ‌ها</span>
+      </div>
+    </div>
+  </div>
+</section>
       <h2 class="section-title"><span class="dot"></span>مشکل و راه‌حل</h2>
       <div class="problem-solution">
         <div class="ps-card ps-problem">
-          <div class="feature-icon" style="background:var(--red);color:white; font-weight:bold;">!</div>
+          <div class="feature-icon" style="background:var(--red);color:rgb(168, 214, 180); font-weight:bold;">!</div>
           <h3 class="card-title">مشکل اصلی مشتری</h3>
           <p>افرادی که رژیم لاغری، بدنسازی یا بیماری‌هایی مثل دیابت دارند، در اپلیکیشن‌های فعلی سفارش غذا، باید خودشان از بین فهرست بلند غذاها گزینه مناسب را تشخیص دهند — بدون هیچ راهنمایی تخصصی.</p>
         </div>
